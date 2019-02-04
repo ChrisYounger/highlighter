@@ -86,15 +86,18 @@ require([
 			{ open: '(', close: ')', token: 'delimiter.parenthesis' }
 		],
 		// These are splunk commands that dont have special handling
-		commoncommands: [
-			'fields', 'format', 'eval', 'eventstats', 'streamstats', 'stats', 'timechart', 'chart', 'rex', 'convert'
-		],
-		
+		commandBasics: ['fields', 'format', 'eval', 'eventstats', 'streamstats', 'stats', 'timechart', 'chart', 'rex', 'convert'],
+		commonEvalFunctions: ['abs','case','ceiling','cidrmatch','coalesce','commands','exact','exp','false','floor','if','ifnull','isbool','isint','isnotnull','isnull','isnum','isstr','len','like','ln','log','lower','match','max','md5','min','mvappend','mvcount','mvdedup','mvindex','mvfilter','mvfind','mvjoin','mvrange','mvsort','mvzip','now','null','nullif','pi','pow','random','relative_time','replace','round','searchmatch','sha1','sha256','sha512','sigfig','spath','split','sqrt','strftime','strptime','substr','time','tostring','trim','ltrim','rtrim','true','typeof','upper','urldecode','validate','tonumber','acos','acosh','asin','asinh','atan','atan2','atanh','cos','cosh','hypot','sin','sinh','tan','tanh'],
+		commonAggFunctions: ['sparkline','c','count','dc','distinct_count','mean','avg','stdev','stdevp','var','varp','sum','sumsq','min','max','mode','median','earliest','first','last','latest','perc','p','exactperc','upperperc','list','values','range','estdc','estdc_error','earliest_time','latest_time'],
+		commonConvertFunctions: ['auto', 'dur2sec', 'mstime', 'memk', 'none', 'num', 'rmunit', 'rmcomma', 'ctime', 'mktime'],
+
+		//searchCommandArguments: ["earliest", "latest"], //{token: 'type.identifier.js'}, // e.g. earliest|latest
+		//searchCommandOperators: ["NOT", "OR", "IN"], //{token: 'metatag'}, // e.g. /NOT|OR|IN/
+		//searchCommandFunctions: [], //{token: 'keyword.flow'}, // e.g. /perc95|avg|eval/
 
 
-
-		//WHEN usesConvert=true === "convert":["auto", "dur2sec", "mstime", "memk", "none", "num", "rmunit", "rmcomma", "ctime", "mktime"]
-		//WHEN usesAgg=true === sparkline c|count|dc|distinct_count|mean|avg|stdev|stdevp|var|varp|sum|sumsq|min|max|mode|median|earliest|first|last|latest|(perc|p|exactperc|upperperc|list|values|range|estdc|estdc_error|earliest_time|latest_time
+		//WHEN usesConvert=true === "convert":[]
+		//WHEN usesAgg=true === 
 		//note with usersAgg, the match should be (\S+)\d*(  (because of "perc95" etc)
 		//WHEN usesEval=true === abs|case|ceiling|cidrmatch|coalesce|commands|exact|exp|false|floor|if|ifnull|isbool|isint|isnotnull|isnull|isnum|isstr|len|like|ln|log|lower|match|max|md5|min|mvappend|mvcount|mvdedup|mvindex|mvfilter|mvfind|mvjoin|mvrange|mvsort|mvzip|now|null|nullif|pi|pow|random|relative_time|replace|round|searchmatch|sha1|sha256|sha512|sigfig|spath|split|sqrt|strftime|strptime|substr|time|tostring|trim|ltrim|rtrim|true|typeof|upper|urldecode|validate|tonumber|acos|acosh|asin|asinh|atan|atan2|atanh|cos|cosh|hypot|sin|sinh|tan|tanh
 
@@ -102,25 +105,11 @@ require([
 
 
 
-		//operators: [
-		//	'AS', 'OR', 'IN'
-		//],
-		//escapes: /\\(?:[abfnrtv\\"']|x[0-9A-Fa-f]{1,4}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8})/,
-   		//builtinFunctions: [
-			// Aggregate
-			//'AVG', 'CHECKSUM_AGG', 'COUNT', 'COUNT_BIG', 'GROUPING', 'GROUPING_ID', 'MAX', 'MIN', 'SUM', 'STDEV', 'STDEVP', 'VAR', 'VARP',
-		//],
-		//builtinVariables: [
-			//'splunk_server'
-			// Configu 0x44 ration
-			//'@@DATEFIRST', '@@DBTS', '@@LANGID', '@@LANGUAGE', '@@LOCK_TIMEOUT', '@@MAX_CONNECTIONS', '@@MAX_PRECISION', '@@NESTLEVEL',
-			//'@@OPTIONS', '@@REMSERVER', '@@SERVERNAME', '@@SERVICENAME', '@@SPID', '@@TEXTSIZE', '@@VERSION',
-		//],
+
 		tokenizer: {
 			root: [
 				{ include: '@commonPreamble' },
 				[/\|/, {token: 'strong', next: '@aaCommand'}],
-				//[/[()\[\]]/, '@brackets'],
 				// Search command starts everything off 
 				{ include: '@searchCommand' },
 			],
@@ -134,7 +123,7 @@ require([
 						'stats' : { token: 'keyword', next: '@statsCommand' },
 						'rename' : { token: 'keyword', next: '@renameCommand' },
 						//rest <rest-uri> (count=<int>)? (<splunk-server-opt>)? (<splunk-server-group-opt>)* (<timeout-opt>)? (<get-arg-name>=<get-arg-value>)*
-						'@commoncommands': {token: 'keyword', next: '@commonCommand'},
+						'@commandBasics': {token: 'keyword', next: '@commandBasic'},
 						//'@operators': 'metatag', //operators
 						//'@builtinVariables': 'type.identifier.js',  // predefined originally
 						//'@builtinFunctions': 'predefined',
@@ -143,64 +132,65 @@ require([
 				}],
 				['', '', '@pop'],
 			],
+
+
 			searchCommand: [
 				{ include: '@commonPreamble' },
-				[/earliest|latest/, 'type.identifier.js'],
-				[/[<>=]/, {token: 'operator', /*next: '@rightSideString'*/}],
-				[/NOT|OR|IN/, 'metatag'],
-				[/[^\|\s<>=!]+/, 'identifier'],
-				['', '', '@pop'],
+				[/(?:perc95|avg|eval)(?=\s*\()/, {
+					cases: {
+						'@searchCommandFunctions': {token: 'keyword.flow'}, // e.g. /perc95|avg|eval/
+						'@default': '@pop'
+					}
+				}],
+				[/\w+/, {
+					cases: {
+						'@searchCommandArguments': {token: 'type.identifier.js'}, // e.g. earliest|latest
+						'@searchCommandOperators': {token: 'metatag'}, // e.g. /NOT|OR|IN/
+						'@default': 'identifier'
+					}
+				}],
+				//[/earliest|latest/, 'type.identifier.js'],
+				//[/NOT|OR|IN/, 'metatag'],
+				{ include: '@commonPostamble' },
 			],			
 			restCommand: [
 				{ include: '@commonPreamble' },
 				[/splunk_server|count/, 'type.identifier.js'],
-				[/[<>=]/, {token: 'operator', /*next: '@rightSideString'*/}],
-				[/[^\|\s<>=!]+/, 'identifier'],
-				['', '', '@pop'],
+				{ include: '@commonPostamble' },
 			],
 			inputlookupCommand: [
 				{ include: '@commonPreamble' },
 				[/OUTPUTNEW|OUTPUT/, 'type.identifier.js'],
-				//[/[<>=]/, {token: 'operator', /*next: '@rightSideString'*/}],
 				{ include: '@renameAs' },
-				[/[^\|\s<>=!]+/, 'identifier'],
-				['', '', '@pop'],
+				{ include: '@commonPostamble' },
 			],
 			statsCommand: [
 				{ include: '@commonPreamble' },
 				[/(?:perc95|avg|eval)(?=\s*\()/, 'keyword.flow'],
-				//[/[<>=]/, {token: 'operator', /*next: '@rightSideString'*/}],
 				{ include: '@renameAs' },
-				[/[^\|\s<>=!]+/, 'identifier'],
-				['', '', '@pop'],
+				{ include: '@commonPostamble' },
 			],
 			renameCommand: [
 				{ include: '@commonPreamble' },
 				{ include: '@renameAs' },
-				[/[^\|\s<>=!]+/, 'identifier'],
-				['', '', '@pop'],
-			],						
-			commonCommand: [
+				{ include: '@commonPostamble' },
+			],		
+
+
+			commandBasic: [
 				{ include: '@commonPreamble' },
-				[/[^\|\s<>=!]+/, 'identifier'],
-				['', '', '@pop'],
+				{ include: '@commonPostamble' },
 			],
-			/*rightSideString: [
-				//{ include: '@strings' },
-				[/"/,  { token: 'string.quote', bracket: '@open', next: '@string' } ],
-				[/[^\s\)]+/, {token: 'string', next: '@pop'}]
-			],
-			string: [
-				[/[^\\"]+/,  'string'],
-				[/@escapes/, 'string.escape'],
-				[/\\./,      'string.escape.invalid'],
-				[/"/,        { token: 'string.quote', bracket: '@close', next: '@pop' } ]
-			],			*/
 			commonPreamble: [
 				{ include: '@whitespace' },
 				{ include: '@strings' },
 				{ include: '@numbers' },			
 				[/[()\[\]]/, '@brackets'],
+			],
+			commonPostamble: [
+				[/[<>=]/, {token: 'operator', /*next: '@rightSideString'*/}],
+				[/[^\|\s<>=!]+/, 'identifier'],
+				['', '', '@pop'],
 			],
 			renameAs: [
 				// This regex allows matching the right side of "as". I wonder if it becomes a bit much though
