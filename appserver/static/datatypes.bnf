@@ -1,0 +1,42 @@
+[bool]
+syntax = t|true|f|false
+[field]
+syntax = <fvalue>
+[field-and-value]
+syntax = <field>/s*=/s*<fvalue>
+[field-and-value-list]
+syntax = (?:<field-and-value>)+
+[field-list]
+syntax = <field>(?:[ ,]+<field>)*
+[filename]
+syntax = (?:/".*?/")|[^ ]*
+[fvalue]
+syntax = (?:/".*?/")|[a-zA-Z0-9_*-]*
+[int]
+syntax = -?/d+(?!/.)
+[logical-expression]
+syntax = <string>
+[no-ws]
+syntax = XXNO-WSXX
+[num]
+syntax = -?/d+(?:/./d+)*
+[search-pipeline]
+syntax = .+
+[sed-expression]
+syntax = .+
+[string]
+syntax = .*
+[tag]
+syntax = [a-zA-Z0-9_-]+
+[tag-list]
+syntax = (?:<tag>)+
+[term]
+syntax = [^ ]+
+[wc-field]
+syntax = <field>
+[wc-field-list]
+syntax = <field-list>
+[wc-str]
+syntax = <string>
+[wc-string]
+syntax = <string>

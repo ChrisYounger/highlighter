@@ -1,0 +1,60 @@
+.dashboard-body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background-color: #1e1e1e;
+}
+
+.dashboard-body.hl_loading {
+    height: 100%;
+    position: absolute;
+    width: 100%;
+}
+.hl_loading .hl_wrap {
+	visibility: hidden;
+}
+.dashboard-body * {
+	box-sizing: border-box;
+}
+.dashboard-body a:focus,
+.dashboard-body a:active {
+	box-shadow: none !important;
+}
+.hl_app_bar {
+    position: absolute;
+    background-color: #404040;
+    color: #ccc;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 38px;
+    line-height: 38px;
+    border-bottom: 1px solid black;
+}
+.hl_container {
+	position: absolute;
+    left: 0;
+    right: 0;
+    top: 39px;
+    bottom: 0;
+}
+.hl_app_bar a,
+.hl_app_bar a:hover {
+	color: #00A4FD;
+    margin: auto 4px;
+}
+.hl_app_bar a.hl_selected {
+    color: inherit;
+    cursor: default;
+    text-decoration: none;
+}
+
+.hl_title {
+    margin-left: 20px;
+    margin-right: 10px;
+    font-weight: bold;
+    color: white;
+}
+.hl_title_leftpad {
+    margin-left: 50px;
+}

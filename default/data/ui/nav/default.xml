@@ -1,0 +1,3 @@
+<nav search_view="search">
+	<view name="highlighter" default='true'/>
+</nav>

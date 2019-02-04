@@ -1,0 +1,1801 @@
+[
+   {
+      "command": "abstract",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "maxterms",
+         "maxlines"
+      ]
+   },
+   {
+      "command": "accum",
+      "renameAs": true,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": []
+   },
+   {
+      "command": "addcoltotals",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "labelfield",
+         "label"
+      ]
+   },
+   {
+      "command": "addinfo",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": []
+   },
+   {
+      "command": "addtotals",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "row",
+         "col",
+         "labelfield",
+         "label",
+         "fieldname"
+      ]
+   },
+   {
+      "command": "analyzefields",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "classfield"
+      ]
+   },
+   {
+      "command": "anomalies",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": ["BY"],
+      "args": [
+         "threshold",
+         "labelonly",
+         "normalize",
+         "maxvalues",
+         "field",
+         "blacklist",
+         "blacklistthreshold"
+      ]
+   },
+   {
+      "command": "anomalousvalue",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "minsupcount",
+         "maxanofreq",
+         "minsupfreq",
+         "minnormfreq",
+         "pthresh",
+         "action"
+      ]
+   },
+   {
+      "command": "anomalydetection",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "pthresh",
+         "cutoff",
+         "method",
+         "action",
+         "action"
+      ]
+   },
+   {
+      "command": "append",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "extendtimerange",
+         "maxtime",
+         "maxout",
+         "timeout"
+      ]
+   },
+   {
+      "command": "appendcols",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "override",
+         "extendtimerange",
+         "maxtime",
+         "maxout",
+         "timeout"
+      ]
+   },
+   {
+      "command": "appendpipe",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "run_in_preview"
+      ]
+   },
+   {
+      "command": "archivebuckets",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "forcerun",
+         "retries"
+      ]
+   },
+   {
+      "command": "arules",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "sup",
+         "conf"
+      ]
+   },
+   {
+      "command": "associate",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "supcnt",
+         "supfreq",
+         "improv"
+      ]
+   },
+   {
+      "command": "audit",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": []
+   },
+   {
+      "command": "autoregress",
+      "renameAs": true,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "p"
+      ]
+   },
+   {
+      "command": "bin",
+      "renameAs": true,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "bins",
+         "minspan"
+      ]
+   },
+   {
+      "command": "bucketdir",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "maxcount",
+         "countfield",
+         "sep",
+         "pathfield",
+         "sizefield"
+      ]
+   },
+   {
+      "command": "chart",
+      "renameAs": true,
+      "usesEval": false,
+      "usesAggs": true,
+      "keywords": ["WHERE", "OVER", "NOT", "AND", "OR","XOR", "LIKE", "BY"],
+      "args": [
+         "sep",
+         "format",
+         "cont",
+         "limit",
+         "minspan",
+         "minspan",
+         "useother",
+         "useother",
+         "aligntime",
+         "span",
+         "start",
+         "end",
+         "nullstr",
+         "otherstr",
+         "bins"
+      ]
+   },
+   {
+      "command": "cluster",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "t",
+         "delims",
+         "showcount",
+         "countfield",
+         "labelfield",
+         "field",
+         "labelonly",
+         "match"
+      ]
+   },
+   {
+      "command": "cofilter",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": []
+   },
+   {
+      "command": "collect",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "addtime",
+         "index",
+         "index",
+         "file",
+         "spool",
+         "marker",
+         "testmode",
+         "run_in_preview",
+         "host",
+         "source",
+         "sourcetype"
+      ]
+   },
+   {
+      "command": "concurrency",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "start",
+         "output",
+         "duration"
+      ]
+   },
+   {
+      "command": "contingency",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "usetotal",
+         "totalstr",
+         "maxrows",
+         "maxcols",
+         "mincolcover",
+         "minrowcover"
+      ]
+   },
+   {
+      "command": "convert",
+      "renameAs": true,
+      "usesEval": false,
+      "usesAggs": false,
+      "usesConvert": true,
+      "keywords": [],
+      "args": [
+         "timeformat"
+      ]
+   },
+   {
+      "command": "correlate",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": []
+   },
+   {
+      "command": "datamodel",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": []
+   },
+   {
+      "command": "dbinspect",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "index",
+         "corruptonly",
+         "span"
+      ]
+   },
+   {
+      "command": "dedup",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": ["sortby"],
+      "args": [
+         "keepevents",
+         "keepempty",
+         "consecutive"
+      ]
+   },
+   {
+      "command": "delete",
+      "orig": "",
+      "remaining": "",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": []
+   },
+   {
+      "command": "delta",
+      "renameAs": true,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "p"
+      ]
+   },
+   {
+      "command": "diff",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "position1",
+         "position2",
+         "attribute",
+         "diffheader",
+         "context",
+         "maxlen"
+      ]
+   },
+   {
+      "command": "erex",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "fromfield",
+         "maxtrainers",
+         "examples",
+         "counterexamples"
+      ]
+   },
+   {
+      "command": "eval",
+      "renameAs": false,
+      "usesEval": true,
+      "usesAggs": false,
+      "keywords": ["AND", "OR", "XOR", "NOT", "LIKE"],
+      "args": [
+         "field",
+         "\",\" NOTFOUND(field"
+      ]
+   },
+   {
+      "command": "eventcount",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "index",
+         "summarize",
+         "report_size",
+         "list_vix"
+      ]
+   },
+   {
+      "command": "eventstats",
+      "renameAs": true,
+      "usesEval": false, // probably should be true
+      "usesAggs": true,
+      "keywords": ["BY"],
+      "args": [
+         "allnum"
+      ]
+   },
+   {
+      "command": "extract",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "segment",
+         "reload",
+         "kvdelim",
+         "pairdelim",
+         "limit",
+         "maxchars",
+         "mv_add",
+         "clean_keys"
+      ]
+   },
+   {
+      "command": "fieldformat",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": ["AND", "OR", "XOR", "NOT", "LIKE"],
+      "args": []
+   },
+   {
+      "command": "fields",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": []
+   },
+   {
+      "command": "fieldsummary",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "maxvals"
+      ]
+   },
+   {
+      "command": "file",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": []
+   },
+   {
+      "command": "filldown",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": []
+   },
+   {
+      "command": "fillnull",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "value"
+      ]
+   },
+   {
+      "command": "findtypes",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "max"
+      ]
+   },
+   {
+      "command": "foreach",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "fieldstr",
+         "matchstr",
+         "matchseg1",
+         "matchseg2",
+         "matchseg3"
+      ]
+   },
+   {
+      "command": "format",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "maxresults",
+         "mvsep"
+      ]
+   },
+   {
+      "command": "from",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": []
+   },
+   {
+      "command": "gauge",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": []
+   },
+   {
+      "command": "gentimes",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+        "increment",
+        "start",
+        "end"
+      ]
+   },
+   {
+      "command": "geom",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "gen",
+      ]
+   },
+   {
+      "command": "geomfilter",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+      ]
+   },
+   {
+      "command": "geostats",
+      "renameAs": true,
+      "usesEval": false,
+      "usesAggs": true,
+      "keywords": [],
+      "args": [
+         "translatetoxy",
+         "latfield",
+         "longfield",
+         "outputlatfield",
+         "outputlongfield",
+         "globallimit",
+         "locallimit",
+         "binspanlat",
+         "maxzoomlevel",
+         "binspanlong"
+      ]
+   },
+   {
+      "command": "head",
+      "renameAs": false,
+      "usesEval": true,
+      "usesAggs": false,
+      "keywords": ["AND", "OR", "XOR", "NOT", "LIKE"],
+      "args": [
+         "limit",
+         "null",
+         "keeplast"
+      ]
+   },
+   {
+      "command": "highlight",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": []
+   },
+   {
+      "command": "history",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "events"
+      ]
+   },
+   {
+      "command": "iconify",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": []
+   },
+   {
+      "command": "input",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "sourcetype",
+         "index",
+         "add",
+         "remove"
+      ]
+   },
+   {
+      "command": "inputcsv",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": ["WHERE"],
+      "args": [
+         "dispatch",
+         "append",
+         "start",
+         "max",
+         "events"
+      ]
+   },
+   {
+      "command": "inputlookup",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": ["WHERE"],
+      "args": [
+         "append",
+         "start",
+         "max"
+      ]
+   },
+   {
+      "command": "iplocation",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "prefix",
+         "allfields",
+         "lang"
+      ]
+   },
+   {
+      "command": "join",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": ["WHERE"],
+      "args": [
+         "left",
+         "right",
+         "usetime",
+         "earlier",
+         "overwrite",
+         "max",
+         "type",
+         "field",
+         "<string>.NOTFOUND(field"
+      ]
+   },
+   {
+      "command": "kmeans",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "reps",
+         "maxiters",
+         "t",
+         "k",
+         "cfield",
+         "showcentroid",
+         "dt"
+      ]
+   },
+   {
+      "command": "kvform",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "form",
+         "field"
+      ]
+   },
+   {
+      "command": "loadjob",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "events",
+         "job_delegate",
+         "artifact_offset",
+         "ignore_running",
+         "savedsearch"
+      ]
+   },
+   {
+      "command": "localize",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "maxpause",
+         "timeafter",
+         "timebefore"
+      ]
+   },
+   {
+      "command": "localop",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": []
+   },
+   {
+      "command": "lookup",
+      "renameAs": true,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": ["OUTPUTNEW","OUTPUT"],
+      "args": [
+         "local",
+         "update",
+         "event_time_field"
+      ]
+   },
+   {
+      "command": "makecontinuous",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "bins",
+         "minspan",
+         "span",
+         "start",
+         "end",
+         "aligntime"
+      ]
+   },
+   {
+      "command": "makejson",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "output"
+      ]
+   },
+   {
+      "command": "makemv",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "delim",
+         "allowempty",
+         "setsv",
+         "tokenizer"
+      ]
+   },
+   {
+      "command": "makeresults",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "count",
+         "annotate",
+         "splunk_server",
+         "splunk_server_group"
+      ]
+   },
+   {
+      "command": "map",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "maxsearches",
+         "search"
+      ]
+   },
+   {
+      "command": "mcollect",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "index",
+         "file",
+         "split",
+         "spool",
+         "prefix_field",
+         "host",
+         "source",
+         "sourcetype"
+      ]
+   },
+   {
+      "command": "metadata",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "index",
+         "splunk_server",
+         "splunk_server_group",
+         "datatype",
+         "type"
+      ]
+   },
+   {
+      "command": "metasearch",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": ["IN"],
+      "args": [
+         "savedsearch",
+         "savedsplunk",
+         "field",
+         "eventtypetag",
+         "hosttag"
+      ]
+   },
+   {
+      "command": "meventcollect",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "index",
+         "split",
+         "spool",
+         "prefix_field",
+         "host",
+         "source",
+         "sourcetype"
+      ]
+   },
+   {
+      "command": "mstats",
+      "renameAs": false,
+      "usesEval": false,  // should probs be true
+      "usesAggs": true,
+      "keywords": [],
+      "args": [
+         "prestats",
+         "append",
+         "backfill",
+         "update_period",
+         "span",
+         "savedsearch",
+         "savedsplunk",
+         "field"
+      ]
+   },
+   {
+      "command": "multikv",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "conf",
+         "copyattrs",
+         "forceheader",
+         "multitable",
+         "noheader",
+         "rmorig",
+         "fields",
+         "filter"
+      ]
+   },
+   {
+      "command": "multisearch",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": []
+   },
+   {
+      "command": "mvcombine",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "delim"
+      ]
+   },
+   {
+      "command": "mvexpand",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "limit"
+      ]
+   },
+   {
+      "command": "nomv",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": []
+   },
+   {
+      "command": "outlier",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "param",
+         "uselower",
+         "mark",
+         "action"
+      ]
+   },
+   {
+      "command": "outputcsv",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "append",
+         "create_empty",
+         "override_if_empty",
+         "dispatch",
+         "usexml",
+         "singlefile"
+      ]
+   },
+   {
+      "command": "outputlookup",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "append",
+         "create_empty",
+         "override_if_empty",
+         "max",
+         "key_field",
+         "createinapp",
+         "output_format"
+      ]
+   },
+   {
+      "command": "outputtelemetry",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "input",
+         "type",
+         "component",
+         "support",
+         "anonymous",
+         "license",
+         "optinrequired"
+      ]
+   },
+   {
+      "command": "outputtext",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "usexml"
+      ]
+   },
+   {
+      "command": "overlap",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": []
+   },
+   {
+      "command": "pivot",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": []
+   },
+   {
+      "command": "predict",
+      "renameAs": true,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "correlate",
+         "future_timespan",
+         "holdback",
+         "period",
+         "suppress",
+         "algorithm",
+         "upper",
+         "lower",
+      ]
+   },
+   {
+      "command": "rangemap",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "default",
+         "field",
+      ]
+   },
+   {
+      "command": "rare",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": ["BY"],
+      "args": [
+         "showcount",
+         "showperc",
+         "limit",
+         "countfield",
+         "percentfield",
+         "useother",
+         "otherstr"
+      ]
+   },
+   {
+      "command": "redistribute",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": ["BY"],
+      "args": [
+         "num_of_reducers"
+      ]
+   },
+   {
+      "command": "regex",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": []
+   },
+   {
+      "command": "relevancy",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": []
+   },
+   {
+      "command": "reltime",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": []
+   },
+   {
+      "command": "rename",
+      "renameAs": true,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": []
+   },
+   {
+      "command": "replace",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": ["WITH", "IN"],
+      "args": []
+   },
+   {
+      "command": "rest",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "count",
+         "splunk_server",
+         "splunk_server_group",
+         "timeout",
+      ]
+   },
+   {
+      "command": "return",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+      ]
+   },
+   {
+      "command": "reverse",
+      "orig": "",
+      "remaining": "",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": []
+   },
+   {
+      "command": "rex",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "field",
+         "max_match",
+         "offset_field",
+         "mode"
+      ]
+   },
+   {
+      "command": "rtorder",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "discard",
+         "buffer_span",
+         "max_buffer_size"
+      ]
+   },
+   {
+      "command": "savedsearch",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "nosubstitution",
+      ]
+   },
+   {
+      "command": "script",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "maxinputs"
+      ]
+   },
+   {
+      "command": "scrub",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "dictionary",
+         "timeconfig",
+         "namespace",
+         "public-terms",
+         "private-terms",
+         "name-terms"
+      ]
+   },
+   {
+      "command": "search",
+      "orig": "(\"(\" NOTFOUND(_RECURSION_) \")\")|(_RECURSION_=<string>)? (<earliesttime><indexearliest>|<starttime>|<startdaysago>|<startminutesago>|<starthoursago>|<startmonthsago>|<starttimeu>|<latesttime>|<indexlatest>|<endtime>|<enddaysago>|<endminutesago>|<endhoursago>|<endmonthsago>|<endtimeu>|<searchtimespanhours>|<searchtimespanminutes>|<searchtimespandays>|<searchtimespanmonths>|<daysago>|<minutesago>|<hoursago>|<monthsago> )*|index(=|!=)<string>|sourcetype(=|!=)<string>|host(=|!=)<string>|source(=|!=)<string>|(savedsearch|savedsplunk)=<string>|eventtype(=|!=)<string>|eventtypetag(=|!=)<string>|hosttag(=|!=)<string>|tag(=|!=)<field>::<string>|(NOTFOUND(boolean-operator-not)? (\"(\" NOTFOUND(_RECURSION_) \")\")|(<timeformat>)? (<time-modifier> )*|<index-specifier>|<sourcetype-specifier>|<host-specifier>|<source-specifier>|<savedsplunk-specifier>|<eventtype-specifier>|<eventtypetag-specifier>|<hosttag-specifier>|<tag-specifier>|(NOTFOUND(boolean-operator-not)? (\"(\" <_RECURSION_> \")\")|<time-opts>|<search-modifier>|(<boolean-operator-not>? <logical-expression>)|<index-expression>|<comparison-expression>|(<logical-expression> (<boolean-operator-or>|<boolean-operator-and>)? <logical-expression>))|\\\"<string>\\\"|<term>|<search-modifier>|<field><cmp><value>|<field> IN <value-list>|((\"(\" <_RECURSION_> \")\")|<time-opts>|<search-modifier>|(<boolean-operator-not>? <logical-expression>)|<index-expression>|<comparison-expression>|(<logical-expression> (<boolean-operator-or>|<boolean-operator-and>)? <logical-expression>) (NOTFOUND(boolean-operator-or)|NOTFOUND(boolean-operator-and))? (\"(\" <_RECURSION_> \")\")|<time-opts>|<search-modifier>|(<boolean-operator-not>? <logical-expression>)|<index-expression>|<comparison-expression>|(<logical-expression> (<boolean-operator-or>|<boolean-operator-and>)? <logical-expression>)))|\\\"NOTFOUND(string)\\\"|NOTFOUND(term)|<index-specifier>|<sourcetype-specifier>|<host-specifier>|<source-specifier>|<savedsplunk-specifier>|<eventtype-specifier>|<eventtypetag-specifier>|<hosttag-specifier>|<tag-specifier>|NOTFOUND(field)=|!=|\"<\"|\"<\"=|\">\"|\">\"=<lit-_RECURSION_>|NOTFOUND(field) IN \"(\"<value>(,<value>)*\")\"|((\"(\" NOTFOUND(_RECURSION_) \")\")|(<timeformat>)? (<time-modifier> )*|<index-specifier>|<sourcetype-specifier>|<host-specifier>|<source-specifier>|<savedsplunk-specifier>|<eventtype-specifier>|<eventtypetag-specifier>|<hosttag-specifier>|<tag-specifier>|(NOTFOUND(boolean-operator-not)? (\"(\" <_RECURSION_> \")\")|<time-opts>|<search-modifier>|(<boolean-operator-not>? <logical-expression>)|<index-expression>|<comparison-expression>|(<logical-expression> (<boolean-operator-or>|<boolean-operator-and>)? <logical-expression>))|\\\"<string>\\\"|<term>|<search-modifier>|<field><cmp><value>|<field> IN <value-list>|((\"(\" <_RECURSION_> \")\")|<time-opts>|<search-modifier>|(<boolean-operator-not>? <logical-expression>)|<index-expression>|<comparison-expression>|(<logical-expression> (<boolean-operator-or>|<boolean-operator-and>)? <logical-expression>) (NOTFOUND(boolean-operator-or)|NOTFOUND(boolean-operator-and))? (\"(\" <_RECURSION_> \")\")|<time-opts>|<search-modifier>|(<boolean-operator-not>? <logical-expression>)|<index-expression>|<comparison-expression>|(<logical-expression> (<boolean-operator-or>|<boolean-operator-and>)? <logical-expression>)) (NOTFOUND(boolean-operator-or)|NOTFOUND(boolean-operator-and))? (\"(\" NOTFOUND(_RECURSION_) \")\")|(<timeformat>)? (<time-modifier> )*|<index-specifier>|<sourcetype-specifier>|<host-specifier>|<source-specifier>|<savedsplunk-specifier>|<eventtype-specifier>|<eventtypetag-specifier>|<hosttag-specifier>|<tag-specifier>|(NOTFOUND(boolean-operator-not)? (\"(\" <_RECURSION_> \")\")|<time-opts>|<search-modifier>|(<boolean-operator-not>? <logical-expression>)|<index-expression>|<comparison-expression>|(<logical-expression> (<boolean-operator-or>|<boolean-operator-and>)? <logical-expression>))|\\\"<string>\\\"|<term>|<search-modifier>|<field><cmp><value>|<field> IN <value-list>|((\"(\" <_RECURSION_> \")\")|<time-opts>|<search-modifier>|(<boolean-operator-not>? <logical-expression>)|<index-expression>|<comparison-expression>|(<logical-expression> (<boolean-operator-or>|<boolean-operator-and>)? <logical-expression>) (NOTFOUND(boolean-operator-or)|NOTFOUND(boolean-operator-and))? (\"(\" <_RECURSION_> \")\")|<time-opts>|<search-modifier>|(<boolean-operator-not>? <logical-expression>)|<index-expression>|<comparison-expression>|(<logical-expression> (<boolean-operator-or>|<boolean-operator-and>)? <logical-expression>)))?",
+      "remaining": "(\"(\" NOTFOUND(_RECURSION_) \")\")|(_RECURSION_=<string>)? (<earliesttime><indexearliest>|<starttime>|<startdaysago>|<startminutesago>|<starthoursago>|<startmonthsago>|<starttimeu>|<latesttime>|<indexlatest>|<endtime>|<enddaysago>|<endminutesago>|<endhoursago>|<endmonthsago>|<endtimeu>|<searchtimespanhours>|<searchtimespanminutes>|<searchtimespandays>|<searchtimespanmonths>|<daysago>|<minutesago>|<hoursago>|<monthsago> )*|index(=|!=)<string>|sourcetype(=|!=)<string>|host(=|!=)<string>|source(=|!=)<string>|<string>|eventtype(=|!=)<string>|eventtypetag(=|!=)<string>|hosttag(=|!=)<string>|tag(=|!=)<field>::<string>|(NOTFOUND(boolean-operator-not)? (\"(\" NOTFOUND(_RECURSION_) \")\")|(<timeformat>)? (<time-modifier> )*|<index-specifier>|<sourcetype-specifier>|<host-specifier>|<source-specifier>|<savedsplunk-specifier>|<eventtype-specifier>|<eventtypetag-specifier>|<hosttag-specifier>|<tag-specifier>|(NOTFOUND(boolean-operator-not)? (\"(\" <_RECURSION_> \")\")|<time-opts>|<search-modifier>|(<boolean-operator-not>? <logical-expression>)|<index-expression>|<comparison-expression>|(<logical-expression> (<boolean-operator-or>|<boolean-operator-and>)? <logical-expression>))|\\\"<string>\\\"|<term>|<search-modifier>|<field><cmp><value>|<field> IN <value-list>|((\"(\" <_RECURSION_> \")\")|<time-opts>|<search-modifier>|(<boolean-operator-not>? <logical-expression>)|<index-expression>|<comparison-expression>|(<logical-expression> (<boolean-operator-or>|<boolean-operator-and>)? <logical-expression>) (NOTFOUND(boolean-operator-or)|NOTFOUND(boolean-operator-and))? (\"(\" <_RECURSION_> \")\")|<time-opts>|<search-modifier>|(<boolean-operator-not>? <logical-expression>)|<index-expression>|<comparison-expression>|(<logical-expression> (<boolean-operator-or>|<boolean-operator-and>)? <logical-expression>)))|\\\"NOTFOUND(string)\\\"|NOTFOUND(term)|<index-specifier>|<sourcetype-specifier>|<host-specifier>|<source-specifier>|<savedsplunk-specifier>|<eventtype-specifier>|<eventtypetag-specifier>|<hosttag-specifier>|<tag-specifier>|NOTFOUND|!=|\"<\"|\"<\"=|\">\"|\">\"=<lit-_RECURSION_>|NOTFOUND(field) IN \"(\"<value>(,<value>)*\")\"|((\"(\" NOTFOUND(_RECURSION_) \")\")|(<timeformat>)? (<time-modifier> )*|<index-specifier>|<sourcetype-specifier>|<host-specifier>|<source-specifier>|<savedsplunk-specifier>|<eventtype-specifier>|<eventtypetag-specifier>|<hosttag-specifier>|<tag-specifier>|(NOTFOUND(boolean-operator-not)? (\"(\" <_RECURSION_> \")\")|<time-opts>|<search-modifier>|(<boolean-operator-not>? <logical-expression>)|<index-expression>|<comparison-expression>|(<logical-expression> (<boolean-operator-or>|<boolean-operator-and>)? <logical-expression>))|\\\"<string>\\\"|<term>|<search-modifier>|<field><cmp><value>|<field> IN <value-list>|((\"(\" <_RECURSION_> \")\")|<time-opts>|<search-modifier>|(<boolean-operator-not>? <logical-expression>)|<index-expression>|<comparison-expression>|(<logical-expression> (<boolean-operator-or>|<boolean-operator-and>)? <logical-expression>) (NOTFOUND(boolean-operator-or)|NOTFOUND(boolean-operator-and))? (\"(\" <_RECURSION_> \")\")|<time-opts>|<search-modifier>|(<boolean-operator-not>? <logical-expression>)|<index-expression>|<comparison-expression>|(<logical-expression> (<boolean-operator-or>|<boolean-operator-and>)? <logical-expression>)) (NOTFOUND(boolean-operator-or)|NOTFOUND(boolean-operator-and))? (\"(\" NOTFOUND(_RECURSION_) \")\")|(<timeformat>)? (<time-modifier> )*|<index-specifier>|<sourcetype-specifier>|<host-specifier>|<source-specifier>|<savedsplunk-specifier>|<eventtype-specifier>|<eventtypetag-specifier>|<hosttag-specifier>|<tag-specifier>|(NOTFOUND(boolean-operator-not)? (\"(\" <_RECURSION_> \")\")|<time-opts>|<search-modifier>|(<boolean-operator-not>? <logical-expression>)|<index-expression>|<comparison-expression>|(<logical-expression> (<boolean-operator-or>|<boolean-operator-and>)? <logical-expression>))|\\\"<string>\\\"|<term>|<search-modifier>|<field><cmp><value>|<field> IN <value-list>|((\"(\" <_RECURSION_> \")\")|<time-opts>|<search-modifier>|(<boolean-operator-not>? <logical-expression>)|<index-expression>|<comparison-expression>|(<logical-expression> (<boolean-operator-or>|<boolean-operator-and>)? <logical-expression>) (NOTFOUND(boolean-operator-or)|NOTFOUND(boolean-operator-and))? (\"(\" <_RECURSION_> \")\")|<time-opts>|<search-modifier>|(<boolean-operator-not>? <logical-expression>)|<index-expression>|<comparison-expression>|(<logical-expression> (<boolean-operator-or>|<boolean-operator-and>)? <logical-expression>)))?",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "savedsearch",
+         "savedsplunk",
+         "field"
+      ]
+   },
+   {
+      "command": "searchtxn",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "max_terms",
+         "use_disjunct",
+         "eventsonly"
+      ]
+   },
+   {
+      "command": "selfjoin",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "overwrite",
+         "max",
+         "keepsingle"
+      ]
+   },
+   {
+      "command": "sendemail",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "to",
+         "from",
+         "cc",
+         "bcc",
+         "paperorientation",
+         "priority",
+         "papersize",
+         "content_type",
+         "format",
+         "subject",
+         "message",
+         "footer",
+         "sendresults",
+         "inline",
+         "sendcsv",
+         "sendpdf",
+         "pdfview",
+         "server",
+         "graceful",
+         "width_sort_columns",
+         "use_ssl",
+         "use_tls",
+         "maxinputs",
+         "maxtime"
+      ]
+   },
+   {
+      "command": "set",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": ["union", "diff", "intersect"],
+      "args": []
+   },
+   {
+      "command": "shape",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "maxvalues",
+         "maxresolution"
+      ]
+   },
+   {
+      "command": "sichart",
+      "orig": "(sep=NOTFOUND(string))? (format=NOTFOUND(string))? (cont=NOTFOUND(bool))? (limit=NOTFOUND(int))? (agg=<stats-func>( \"(\" ( <evaled-field> | <wc-field> )? \")\" )? (as NOTFOUND(wc-field))?)? ( <stats-func>( \"(\" ( <evaled-field> | <wc-field> )? \")\" )? (as NOTFOUND(wc-field))? | sparkline \"(\" count (\",\" <span-length> )? \")\" | sparkline \"(\" <sparkline-func> \"(\" <wc-field> \")\" ( \",\" <span-length> )? \")\" (as NOTFOUND(wc-field))? | ( \"(\" (<field>|<num>) ((+|-|*|/|%) <eval-expression>)* | ((<field>|<string>|<num>) (. <eval-expression>)*)|((<field>|<string>) (+ <eval-expression>)*) | (<field>|<string>|<num>) (\"<\"|\">\"|\"<\"=|\">\"=|!=|=|==|LIKE) <eval-expression> | (NOT|!)? (<eval-compare-exp>|<eval-function-call>) ((AND|OR|XOR) <eval-expression>)* | <eval-function> \"(\" <eval-expression> (\",\" <eval-expression>)* \")\" \")\" ) )+\n              ( BY NOTFOUND(field) ((bins=<int> minspan=(<span-length>)?)|span=(<span-length>|<log-span>)|(start|end)=<num>|aligntime=(earliest|latest|<time-specifier>) )* (NOTFOUND(field) (<bin-options>|(usenull=<bool>)|(useother=<bool>)|(nullstr=<string>)|(otherstr=<string>) )* (where <single-agg> <where-comp>)?)? )? |\n        ( OVER NOTFOUND(field) ((bins=<int> minspan=(<span-length>)?)|span=(<span-length>|<log-span>)|(start|end)=<num>|aligntime=(earliest|latest|<time-specifier>))* (BY NOTFOUND(field) (<bin-options>|(usenull=<bool>)|(useother=<bool>)|(nullstr=<string>)|(otherstr=<string>) )* (where <single-agg> <where-comp>)?)? )?",
+      "remaining": "    (agg=<stats-func>( \"(\" ( <evaled-field> | <wc-field> )? \")\" )? )? ( <stats-func>( \"(\" ( <evaled-field> | <wc-field> )? \")\" )?  | sparkline \"(\" count (\",\" <span-length> )? \")\" | sparkline \"(\" <sparkline-func> \"(\" <wc-field> \")\" ( \",\" <span-length> )? \")\"  | ( \"(\" (<field>|<num>) ((+|-|*|/|%) <eval-expression>)* | ((<field>|<string>|<num>) (. <eval-expression>)*)|((<field>|<string>) (+ <eval-expression>)*) | (<field>|<string>|<num>) (\"<\"|\">\"|\"<\"=|\">\"=|!=|=|==|LIKE) <eval-expression> | (NOT|!)? (<eval-compare-exp>|<eval-function-call>) ((AND|OR|XOR) <eval-expression>)* | <eval-function> \"(\" <eval-expression> (\",\" <eval-expression>)* \")\" \")\" ) )+\n              ( BY NOTFOUND(field) ((bins=<int>  )* (NOTFOUND(field) (<bin-options>|(usenull=<bool>)|(useother=<bool>)|(nullstr=<string>)|(otherstr=<string>) )* (where <single-agg> <where-comp>)?)? )? |\n        ( OVER NOTFOUND(field) ((bins=<int> * (BY NOTFOUND(field) (<bin-options>|(usenull=<bool>)|(useother=<bool>)|(nullstr=<string>)|(otherstr=<string>) )* (where <single-agg> <where-comp>)?)? )?",
+      "renameAs": true,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "sep",
+         "format",
+         "cont",
+         "limit",
+         "minspan",
+         "minspan"
+      ]
+   },
+   {
+      "command": "sirare",
+      "orig": "(showcount=NOTFOUND(bool))|(showperc=NOTFOUND(bool))|(limit=NOTFOUND(int))|(countfield=NOTFOUND(string))|(percentfield=NOTFOUND(string))|(useother=NOTFOUND(bool))|(otherstr=NOTFOUND(string))* NOTFOUND(field-list) (by NOTFOUND(field-list))?",
+      "remaining": "||||||* NOTFOUND(field-list) (by NOTFOUND(field-list))?",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "showcount",
+         "showperc",
+         "limit",
+         "countfield",
+         "percentfield",
+         "useother",
+         "otherstr"
+      ]
+   },
+   {
+      "command": "sistats",
+      "orig": "(partitions=NOTFOUND(num))? (allnum=NOTFOUND(bool))? (delim=NOTFOUND(string))? (<stats-func>( \"(\" ( <evaled-field> | <wc-field> )? \")\" )? (as NOTFOUND(wc-field))? | sparkline \"(\" count (\",\" <span-length> )? \")\" | sparkline \"(\" <sparkline-func> \"(\" <wc-field> \")\" ( \",\" <span-length> )? \")\" (as NOTFOUND(wc-field))?)* (by NOTFOUND(field-list))?",
+      "remaining": "   (<stats-func>( \"(\" ( <evaled-field> | <wc-field> )? \")\" )?  | sparkline \"(\" count (\",\" <span-length> )? \")\" | sparkline \"(\" <sparkline-func> \"(\" <wc-field> \")\" ( \",\" <span-length> )? \")\" )* (by NOTFOUND(field-list))?",
+      "renameAs": true,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "partitions",
+         "allnum",
+         "delim"
+      ]
+   },
+   {
+      "command": "sitimechart",
+      "orig": "(sep=NOTFOUND(string))? (format=NOTFOUND(string))? (fixedrange=NOTFOUND(bool))? (partial=NOTFOUND(bool))? (cont=NOTFOUND(bool))? (limit=NOTFOUND(int))? (<stats-func>( \"(\" ( <evaled-field> | <wc-field> )? \")\" )? (as NOTFOUND(wc-field))?)? ((bins=<int> minspan=(<span-length>)?)|span=(<span-length>|<log-span>)|(start|end)=<num>|aligntime=(earliest|latest|<time-specifier>) )* ( count|c|<stats-c>|<stats-dc>|<stats-mean>|<stats-stdev>|<stats-var>|<stats-sum>|<stats-sumsq>|<stats-min>|<stats-max>|<stats-mode>|<stats-median>|<stats-earliest>|<stats-first>|<stats-last>|<stats-latest>|<stats-perc>|<stats-list>|<stats-values>|<stats-range>|<stats-estdc>|<stats-estdc-error>|<stats-earliest-time>|<stats-latest-time>|<stats-rate>\"(\"NOTFOUND(field)|eval \"(\"<eval-expression>\")\"\")\" | (per_second|per_minute|per_hour|per_day) \"(\" NOTFOUND(field)|eval \"(\"<eval-expression>\")\" \")\" | ( \"(\" (<field>|<num>) ((+|-|*|/|%) <eval-expression>)* | ((<field>|<string>|<num>) (. <eval-expression>)*)|((<field>|<string>) (+ <eval-expression>)*) | (<field>|<string>|<num>) (\"<\"|\">\"|\"<\"=|\">\"=|!=|=|==|LIKE) <eval-expression> | (NOT|!)? (<eval-compare-exp>|<eval-function-call>) ((AND|OR|XOR) <eval-expression>)* | <eval-function> \"(\" <eval-expression> (\",\" <eval-expression>)* \")\" \")\" ) )+ by NOTFOUND(field) (<bin-options>|(usenull=<bool>)|(useother=<bool>)|(nullstr=<string>)|(otherstr=<string>) )* (where <single-agg> <where-comp>)?",
+      "remaining": "      (<stats-func>( \"(\" ( <evaled-field> | <wc-field> )? \")\" )? )? ((bins=<int>  )* ( count|c|<stats-c>|<stats-dc>|<stats-mean>|<stats-stdev>|<stats-var>|<stats-sum>|<stats-sumsq>|<stats-min>|<stats-max>|<stats-mode>|<stats-median>|<stats-earliest>|<stats-first>|<stats-last>|<stats-latest>|<stats-perc>|<stats-list>|<stats-values>|<stats-range>|<stats-estdc>|<stats-estdc-error>|<stats-earliest-time>|<stats-latest-time>|<stats-rate>\"(\"NOTFOUND(field)|eval \"(\"<eval-expression>\")\"\")\" | (per_second|per_minute|per_hour|per_day) \"(\" NOTFOUND(field)|eval \"(\"<eval-expression>\")\" \")\" | ( \"(\" (<field>|<num>) ((+|-|*|/|%) <eval-expression>)* | ((<field>|<string>|<num>) (. <eval-expression>)*)|((<field>|<string>) (+ <eval-expression>)*) | (<field>|<string>|<num>) (\"<\"|\">\"|\"<\"=|\">\"=|!=|=|==|LIKE) <eval-expression> | (NOT|!)? (<eval-compare-exp>|<eval-function-call>) ((AND|OR|XOR) <eval-expression>)* | <eval-function> \"(\" <eval-expression> (\",\" <eval-expression>)* \")\" \")\" ) )+ by NOTFOUND(field) (<bin-options>|(usenull=<bool>)|(useother=<bool>)|(nullstr=<string>)|(otherstr=<string>) )* (where <single-agg> <where-comp>)?",
+      "renameAs": true,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "sep",
+         "format",
+         "fixedrange",
+         "partial",
+         "cont",
+         "limit",
+         "minspan"
+      ]
+   },
+   {
+      "command": "sitop",
+      "orig": "NOTFOUND(int)? ((showcount=NOTFOUND(bool))|(showperc=NOTFOUND(bool))|(limit=NOTFOUND(int))|(countfield=NOTFOUND(string))|(percentfield=NOTFOUND(string))|(useother=NOTFOUND(bool))|(otherstr=NOTFOUND(string)))* NOTFOUND(field-list) (by NOTFOUND(field-list))?",
+      "remaining": "NOTFOUND(int)? (||||||* NOTFOUND(field-list) (by NOTFOUND(field-list))?",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "showcount",
+         "showperc",
+         "limit",
+         "countfield",
+         "percentfield",
+         "useother",
+         "otherstr"
+      ]
+   },
+   {
+      "command": "sort",
+      "orig": "(NOTFOUND(int))? (\"-\"|\"+\")?( )?NOTFOUND(field) | ((auto|str|ip|num) \"(\" NOTFOUND(field) \")\") \",\"?+ (d|desc)?",
+      "remaining": "(NOTFOUND(int))? (\"-\"|\"+\")?( )?NOTFOUND(field) | ((auto|str|ip|num) \"(\" NOTFOUND(field) \")\") \",\"?+ (d|desc)?",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": []
+   },
+   {
+      "command": "spath",
+      "orig": "(output=NOTFOUND(field))? (path=NOTFOUND(datapath) | NOTFOUND(datapath))? (input=NOTFOUND(field))?",
+      "remaining": "  | NOTFOUND(datapath))? ",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "output",
+         "path",
+         "input"
+      ]
+   },
+   {
+      "command": "stats",
+      "orig": "(partitions=NOTFOUND(num))? (allnum=NOTFOUND(bool))? (delim=NOTFOUND(string))? (<stats-func>( \"(\" ( <evaled-field> | <wc-field> )? \")\" )? (as NOTFOUND(wc-field))? | sparkline \"(\" count (\",\" <span-length> )? \")\" | sparkline \"(\" <sparkline-func> \"(\" <wc-field> \")\" ( \",\" <span-length> )? \")\" (as NOTFOUND(wc-field))?)* (by NOTFOUND(field-list))?",
+      "remaining": "   (<stats-func>( \"(\" ( <evaled-field> | <wc-field> )? \")\" )?  | sparkline \"(\" count (\",\" <span-length> )? \")\" | sparkline \"(\" <sparkline-func> \"(\" <wc-field> \")\" ( \",\" <span-length> )? \")\" )* (by NOTFOUND(field-list))?",
+      "renameAs": true,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "partitions",
+         "allnum",
+         "delim"
+      ]
+   },
+   {
+      "command": "strcat",
+      "orig": "(allrequired=NOTFOUND(bool))? (NOTFOUND(field)|NOTFOUND(double-quoted-string)) (NOTFOUND(field)|NOTFOUND(double-quoted-string)) (NOTFOUND(field)|NOTFOUND(double-quoted-string) )* NOTFOUND(field)",
+      "remaining": " (NOTFOUND(field)|NOTFOUND(double-quoted-string)) (NOTFOUND(field)|NOTFOUND(double-quoted-string)) (NOTFOUND(field)|NOTFOUND(double-quoted-string) )* NOTFOUND(field)",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "allrequired"
+      ]
+   },
+   {
+      "command": "streamstats",
+      "orig": "(reset_on_change=NOTFOUND(bool))? (reset_before=\"(\"(NOTFOUND(field)|NOTFOUND(num)) ((+|-|*|/|%) <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call>)* | ((NOTFOUND(field)|NOTFOUND(string)|NOTFOUND(num)) (. <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call>)*)|((NOTFOUND(field)|NOTFOUND(string)) (+ <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call>)*) | (NOTFOUND(field)|NOTFOUND(string)|NOTFOUND(num)) (\"NOTFOUND(\"|\")\"|\"NOTFOUND(\"=|\")\"=|!=|=|==|LIKE) <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call> | (NOT|!)? ((<field>|<string>|<num>) (\"<\"|\">\"|\"<\"=|\">\"=|!=|=|==|LIKE) <eval-expression>|<eval-function> \"(\" <eval-expression> (\",\" <eval-expression>)* \")\") ((AND|OR|XOR) <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call>)* | abs|case|ceiling|cidrmatch|coalesce|commands|exact|exp|false|floor|if|ifnull|isbool|isint|isnotnull|isnull|isnum|isstr|len|like|ln|log|lower|match|max|md5|min|mvappend|mvcount|mvdedup|mvindex|mvfilter|mvfind|mvjoin|mvrange|mvsort|mvzip|now|null|nullif|pi|pow|random|relative_time|replace|round|searchmatch|sha1|sha256|sha512|sigfig|spath|split|sqrt|strftime|strptime|substr|time|tostring|trim|ltrim|rtrim|true|typeof|upper|urldecode|validate|tonumber|acos|acosh|asin|asinh|atan|atan2|atanh|cos|cosh|hypot|sin|sinh|tan|tanh \"(\" <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call> (\",\" <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call>)* \")\"\")\")? (reset_after=\"(\"(NOTFOUND(field)|NOTFOUND(num)) ((+|-|*|/|%) <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call>)* | ((NOTFOUND(field)|NOTFOUND(string)|NOTFOUND(num)) (. <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call>)*)|((NOTFOUND(field)|NOTFOUND(string)) (+ <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call>)*) | (NOTFOUND(field)|NOTFOUND(string)|NOTFOUND(num)) (\"NOTFOUND(\"|\")\"|\"NOTFOUND(\"=|\")\"=|!=|=|==|LIKE) <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call> | (NOT|!)? ((<field>|<string>|<num>) (\"<\"|\">\"|\"<\"=|\">\"=|!=|=|==|LIKE) <eval-expression>|<eval-function> \"(\" <eval-expression> (\",\" <eval-expression>)* \")\") ((AND|OR|XOR) <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call>)* | abs|case|ceiling|cidrmatch|coalesce|commands|exact|exp|false|floor|if|ifnull|isbool|isint|isnotnull|isnull|isnum|isstr|len|like|ln|log|lower|match|max|md5|min|mvappend|mvcount|mvdedup|mvindex|mvfilter|mvfind|mvjoin|mvrange|mvsort|mvzip|now|null|nullif|pi|pow|random|relative_time|replace|round|searchmatch|sha1|sha256|sha512|sigfig|spath|split|sqrt|strftime|strptime|substr|time|tostring|trim|ltrim|rtrim|true|typeof|upper|urldecode|validate|tonumber|acos|acosh|asin|asinh|atan|atan2|atanh|cos|cosh|hypot|sin|sinh|tan|tanh \"(\" <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call> (\",\" <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call>)* \")\"\")\")? (current=NOTFOUND(bool))? (window=NOTFOUND(int))? (time_window=NOTFOUND(int)(sec|min|hr|day|week|month|quarter|year)?)? (global=NOTFOUND(bool))? (allnum=NOTFOUND(bool))? (<stats-c>|<stats-dc>|<stats-mean>|<stats-stdev>|<stats-var>|<stats-sum>|<stats-sumsq>|<stats-min>|<stats-max>|<stats-mode>|<stats-median>|<stats-earliest>|<stats-first>|<stats-last>|<stats-latest>|<stats-perc>|<stats-list>|<stats-values>|<stats-range>|<stats-estdc>|<stats-estdc-error>|<stats-earliest-time>|<stats-latest-time>|<stats-rate>( \"(\" ( eval \"(\"<eval-expression>\")\" | NOTFOUND(wc-field) )? \")\" )? (as NOTFOUND(wc-field))?)* (by NOTFOUND(field-list))?",
+      "remaining": " (reset_before=\"(\"(NOTFOUND(field)|NOTFOUND(num)) ((+|-|*|/|%) <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call>)* | ((NOTFOUND(field)|NOTFOUND(string)|NOTFOUND(num)) (. <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call>)*)|((NOTFOUND(field)|NOTFOUND(string)) (+ <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call>)*) | (NOTFOUND(field)|NOTFOUND(string)|NOTFOUND(num)) (\"NOTFOUND(\"|\")\"|\"NOTFOUND(\"=|\")\"=|!=|=|==|LIKE) <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call> | (NOT|!)? ((<field>|<string>|<num>) (\"<\"|\">\"|\"<\"=|\">\"=|!=|=|==|LIKE) <eval-expression>|<eval-function> \"(\" <eval-expression> (\",\" <eval-expression>)* \")\") ((AND|OR|XOR) <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call>)* | abs|case|ceiling|cidrmatch|coalesce|commands|exact|exp|false|floor|if|ifnull|isbool|isint|isnotnull|isnull|isnum|isstr|len|like|ln|log|lower|match|max|md5|min|mvappend|mvcount|mvdedup|mvindex|mvfilter|mvfind|mvjoin|mvrange|mvsort|mvzip|now|null|nullif|pi|pow|random|relative_time|replace|round|searchmatch|sha1|sha256|sha512|sigfig|spath|split|sqrt|strftime|strptime|substr|time|tostring|trim|ltrim|rtrim|true|typeof|upper|urldecode|validate|tonumber|acos|acosh|asin|asinh|atan|atan2|atanh|cos|cosh|hypot|sin|sinh|tan|tanh \"(\" <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call> (\",\" <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call>)* \")\"\")\")? (reset_after=\"(\"(NOTFOUND(field)|NOTFOUND(num)) ((+|-|*|/|%) <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call>)* | ((NOTFOUND(field)|NOTFOUND(string)|NOTFOUND(num)) (. <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call>)*)|((NOTFOUND(field)|NOTFOUND(string)) (+ <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call>)*) | (NOTFOUND(field)|NOTFOUND(string)|NOTFOUND(num)) (\"NOTFOUND(\"|\")\"|\"NOTFOUND(\"=|\")\"=|!=|=|==|LIKE) <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call> | (NOT|!)? ((<field>|<string>|<num>) (\"<\"|\">\"|\"<\"=|\">\"=|!=|=|==|LIKE) <eval-expression>|<eval-function> \"(\" <eval-expression> (\",\" <eval-expression>)* \")\") ((AND|OR|XOR) <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call>)* | abs|case|ceiling|cidrmatch|coalesce|commands|exact|exp|false|floor|if|ifnull|isbool|isint|isnotnull|isnull|isnum|isstr|len|like|ln|log|lower|match|max|md5|min|mvappend|mvcount|mvdedup|mvindex|mvfilter|mvfind|mvjoin|mvrange|mvsort|mvzip|now|null|nullif|pi|pow|random|relative_time|replace|round|searchmatch|sha1|sha256|sha512|sigfig|spath|split|sqrt|strftime|strptime|substr|time|tostring|trim|ltrim|rtrim|true|typeof|upper|urldecode|validate|tonumber|acos|acosh|asin|asinh|atan|atan2|atanh|cos|cosh|hypot|sin|sinh|tan|tanh \"(\" <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call> (\",\" <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call>)* \")\"\")\")?   (sec|min|hr|day|week|month|quarter|year)?)?   (<stats-c>|<stats-dc>|<stats-mean>|<stats-stdev>|<stats-var>|<stats-sum>|<stats-sumsq>|<stats-min>|<stats-max>|<stats-mode>|<stats-median>|<stats-earliest>|<stats-first>|<stats-last>|<stats-latest>|<stats-perc>|<stats-list>|<stats-values>|<stats-range>|<stats-estdc>|<stats-estdc-error>|<stats-earliest-time>|<stats-latest-time>|<stats-rate>( \"(\" ( eval \"(\"<eval-expression>\")\" | NOTFOUND(wc-field) )? \")\" )? )* (by NOTFOUND(field-list))?",
+      "renameAs": true,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "reset_on_change",
+         "current",
+         "window",
+         "time_window",
+         "global",
+         "allnum"
+      ]
+   },
+   {
+      "command": "table",
+      "orig": "NOTFOUND(wc-field-list)",
+      "remaining": "NOTFOUND(wc-field-list)",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": []
+   },
+   {
+      "command": "tags",
+      "orig": "(outputfield=NOTFOUND(field))? (inclname=NOTFOUND(bool))? (inclvalue=NOTFOUND(bool))? (NOTFOUND(field) )*",
+      "remaining": "   (NOTFOUND(field) )*",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "outputfield",
+         "inclname",
+         "inclvalue"
+      ]
+   },
+   {
+      "command": "tail",
+      "orig": "(NOTFOUND(int))?",
+      "remaining": "(NOTFOUND(int))?",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": []
+   },
+   {
+      "command": "timechart",
+      "orig": "(sep=NOTFOUND(string))? (format=NOTFOUND(string))? (fixedrange=NOTFOUND(bool))? (partial=NOTFOUND(bool))? (cont=NOTFOUND(bool))? (limit=NOTFOUND(int))? (<stats-func>( \"(\" ( <evaled-field> | <wc-field> )? \")\" )? (as NOTFOUND(wc-field))?)? ((bins=<int> minspan=(<span-length>)?)|span=(<span-length>|<log-span>)|(start|end)=<num>|aligntime=(earliest|latest|<time-specifier>) )* ( count|c|<stats-c>|<stats-dc>|<stats-mean>|<stats-stdev>|<stats-var>|<stats-sum>|<stats-sumsq>|<stats-min>|<stats-max>|<stats-mode>|<stats-median>|<stats-earliest>|<stats-first>|<stats-last>|<stats-latest>|<stats-perc>|<stats-list>|<stats-values>|<stats-range>|<stats-estdc>|<stats-estdc-error>|<stats-earliest-time>|<stats-latest-time>|<stats-rate>\"(\"NOTFOUND(field)|eval \"(\"<eval-expression>\")\"\")\" | (per_second|per_minute|per_hour|per_day) \"(\" NOTFOUND(field)|eval \"(\"<eval-expression>\")\" \")\" | ( \"(\" (<field>|<num>) ((+|-|*|/|%) <eval-expression>)* | ((<field>|<string>|<num>) (. <eval-expression>)*)|((<field>|<string>) (+ <eval-expression>)*) | (<field>|<string>|<num>) (\"<\"|\">\"|\"<\"=|\">\"=|!=|=|==|LIKE) <eval-expression> | (NOT|!)? (<eval-compare-exp>|<eval-function-call>) ((AND|OR|XOR) <eval-expression>)* | <eval-function> \"(\" <eval-expression> (\",\" <eval-expression>)* \")\" \")\" ) )+ by NOTFOUND(field) (<bin-options>|(usenull=<bool>)|(useother=<bool>)|(nullstr=<string>)|(otherstr=<string>) )* (where <single-agg> <where-comp>)?",
+      "remaining": "      (<stats-func>( \"(\" ( <evaled-field> | <wc-field> )? \")\" )? )? ((bins=<int>  )* ( count|c|<stats-c>|<stats-dc>|<stats-mean>|<stats-stdev>|<stats-var>|<stats-sum>|<stats-sumsq>|<stats-min>|<stats-max>|<stats-mode>|<stats-median>|<stats-earliest>|<stats-first>|<stats-last>|<stats-latest>|<stats-perc>|<stats-list>|<stats-values>|<stats-range>|<stats-estdc>|<stats-estdc-error>|<stats-earliest-time>|<stats-latest-time>|<stats-rate>\"(\"NOTFOUND(field)|eval \"(\"<eval-expression>\")\"\")\" | (per_second|per_minute|per_hour|per_day) \"(\" NOTFOUND(field)|eval \"(\"<eval-expression>\")\" \")\" | ( \"(\" (<field>|<num>) ((+|-|*|/|%) <eval-expression>)* | ((<field>|<string>|<num>) (. <eval-expression>)*)|((<field>|<string>) (+ <eval-expression>)*) | (<field>|<string>|<num>) (\"<\"|\">\"|\"<\"=|\">\"=|!=|=|==|LIKE) <eval-expression> | (NOT|!)? (<eval-compare-exp>|<eval-function-call>) ((AND|OR|XOR) <eval-expression>)* | <eval-function> \"(\" <eval-expression> (\",\" <eval-expression>)* \")\" \")\" ) )+ by NOTFOUND(field) (<bin-options>|(usenull=<bool>)|(useother=<bool>)|(nullstr=<string>)|(otherstr=<string>) )* (where <single-agg> <where-comp>)?",
+      "renameAs": true,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "sep",
+         "format",
+         "fixedrange",
+         "partial",
+         "cont",
+         "limit",
+         "minspan"
+      ]
+   },
+   {
+      "command": "timewrap",
+      "orig": "(NOTFOUND(int))sec|min|hr|day|week|month|quarter|year (align=(now|end))? (series=(relative|exact|short)?) (time_format=NOTFOUND(str))?",
+      "remaining": "(NOTFOUND(int))sec|min|hr|day|week|month|quarter|year ( ( ",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "time_format",
+         "align",
+         "series"
+      ]
+   },
+   {
+      "command": "top",
+      "orig": "NOTFOUND(int)? ((showcount=NOTFOUND(bool))|(showperc=NOTFOUND(bool))|(limit=NOTFOUND(int))|(countfield=NOTFOUND(string))|(percentfield=NOTFOUND(string))|(useother=NOTFOUND(bool))|(otherstr=NOTFOUND(string)))* NOTFOUND(field-list) (by NOTFOUND(field-list))?",
+      "remaining": "NOTFOUND(int)? (||||||* NOTFOUND(field-list) (by NOTFOUND(field-list))?",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "showcount",
+         "showperc",
+         "limit",
+         "countfield",
+         "percentfield",
+         "useother",
+         "otherstr"
+      ]
+   },
+   {
+      "command": "transaction",
+      "orig": "(NOTFOUND(field-list))? (name=NOTFOUND(string))? (maxspan=NOTFOUND(int)(s|m|h|d)? | maxpause=NOTFOUND(int)(s|m|h|d)? | maxevents=NOTFOUND(int) | NOTFOUND(field-list) | startswith=<transam-filter-search-noquotes> | <transam-filter-search-quotes> | <transam-filter-eval> | endswith=<transam-filter-search-noquotes> | <transam-filter-search-quotes> | <transam-filter-eval> | connected=NOTFOUND(bool) | unifyends=NOTFOUND(bool) | keeporphans=NOTFOUND(bool))* (maxopentxn=NOTFOUND(int) | maxopenevents=NOTFOUND(int) | keepevicted=NOTFOUND(bool))* (delim=NOTFOUND(string) | mvlist=NOTFOUND(bool)|NOTFOUND(field-list) | nullstr=NOTFOUND(string) | mvraw=NOTFOUND(bool))*",
+      "remaining": "(NOTFOUND(field-list))?   | (s|m|h|d)? |  | NOTFOUND(field-list) | startswith=<transam-filter-search-noquotes> | <transam-filter-search-quotes> | <transam-filter-eval> | endswith=<transam-filter-search-noquotes> | <transam-filter-search-quotes> | <transam-filter-eval> |  |  | )*  |  | )*  | |NOTFOUND(field-list) |  | )*",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "name",
+         "maxspan",
+         "maxopentxn",
+         "delim",
+         "maxpause",
+         "maxevents",
+         "connected",
+         "unifyends",
+         "keeporphans",
+         "maxopenevents",
+         "keepevicted",
+         "mvlist",
+         "nullstr",
+         "mvraw"
+      ]
+   },
+   {
+      "command": "transpose",
+      "orig": "(NOTFOUND(int))? (column_name=NOTFOUND(string))? (header_field=NOTFOUND(field))? (include_empty=NOTFOUND(bool))?",
+      "remaining": "(NOTFOUND(int))?   ",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "column_name",
+         "header_field",
+         "include_empty"
+      ]
+   },
+   {
+      "command": "trendline",
+      "orig": "((sma|ema|wma)NOTFOUND(int)\"(\"NOTFOUND(field)\")\" (as NOTFOUND(field))?)+",
+      "remaining": "((sma|ema|wma)NOTFOUND(int)\"(\"NOTFOUND(field)\")\" )+",
+      "renameAs": true,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": []
+   },
+   {
+      "command": "tstats",
+      "orig": "(prestats=NOTFOUND(bool))? (local=NOTFOUND(bool))? (append=NOTFOUND(bool))? (summariesonly=NOTFOUND(bool))? (allow_old_summaries=NOTFOUND(bool))? (chunk_size=NOTFOUND(unsigned int))? (c|count|dc|distinct_count|mean|avg|stdev|stdevp|var|varp|sum|sumsq|min|max|mode|median|earliest|first|last|latest|(perc|p|exactperc|upperperc)NOTFOUND(int)|list|values|range|estdc|estdc_error|earliest_time|latest_time|NOTFOUND(stats-rate))+ (FROM NOTFOUND(string:namespace) | sid=NOTFOUND(string:tscollect-job-id) | datamodel=NOTFOUND(string:datamodel-name))? (WHERE (\"(\" NOTFOUND(_RECURSION_) \")\")|(_RECURSION_=<string>)? (<earliesttime><indexearliest>|<starttime>|<startdaysago>|<startminutesago>|<starthoursago>|<startmonthsago>|<starttimeu>|<latesttime>|<indexlatest>|<endtime>|<enddaysago>|<endminutesago>|<endhoursago>|<endmonthsago>|<endtimeu>|<searchtimespanhours>|<searchtimespanminutes>|<searchtimespandays>|<searchtimespanmonths>|<daysago>|<minutesago>|<hoursago>|<monthsago> )*|index(=|!=)<string>|sourcetype(=|!=)<string>|host(=|!=)<string>|source(=|!=)<string>|(savedsearch|savedsplunk)=<string>|eventtype(=|!=)<string>|eventtypetag(=|!=)<string>|hosttag(=|!=)<string>|tag(=|!=)<field>::<string>|(NOTFOUND(boolean-operator-not)? (\"(\" NOTFOUND(_RECURSION_) \")\")|(<timeformat>)? (<time-modifier> )*|<index-specifier>|<sourcetype-specifier>|<host-specifier>|<source-specifier>|<savedsplunk-specifier>|<eventtype-specifier>|<eventtypetag-specifier>|<hosttag-specifier>|<tag-specifier>|(NOTFOUND(boolean-operator-not)? (\"(\" <_RECURSION_> \")\")|<time-opts>|<search-modifier>|(<boolean-operator-not>? <logical-expression>)|<index-expression>|<comparison-expression>|(<logical-expression> (<boolean-operator-or>|<boolean-operator-and>)? <logical-expression>))|\\\"<string>\\\"|<term>|<search-modifier>|<field><cmp><value>|<field> IN <value-list>|((\"(\" <_RECURSION_> \")\")|<time-opts>|<search-modifier>|(<boolean-operator-not>? <logical-expression>)|<index-expression>|<comparison-expression>|(<logical-expression> (<boolean-operator-or>|<boolean-operator-and>)? <logical-expression>) (NOTFOUND(boolean-operator-or)|NOTFOUND(boolean-operator-and))? (\"(\" <_RECURSION_> \")\")|<time-opts>|<search-modifier>|(<boolean-operator-not>? <logical-expression>)|<index-expression>|<comparison-expression>|(<logical-expression> (<boolean-operator-or>|<boolean-operator-and>)? <logical-expression>)))|\\\"NOTFOUND(string)\\\"|NOTFOUND(term)|<index-specifier>|<sourcetype-specifier>|<host-specifier>|<source-specifier>|<savedsplunk-specifier>|<eventtype-specifier>|<eventtypetag-specifier>|<hosttag-specifier>|<tag-specifier>|NOTFOUND(field)=|!=|\"<\"|\"<\"=|\">\"|\">\"=<lit-_RECURSION_>|NOTFOUND(field) IN \"(\"<value>(,<value>)*\")\"|((\"(\" NOTFOUND(_RECURSION_) \")\")|(<timeformat>)? (<time-modifier> )*|<index-specifier>|<sourcetype-specifier>|<host-specifier>|<source-specifier>|<savedsplunk-specifier>|<eventtype-specifier>|<eventtypetag-specifier>|<hosttag-specifier>|<tag-specifier>|(NOTFOUND(boolean-operator-not)? (\"(\" <_RECURSION_> \")\")|<time-opts>|<search-modifier>|(<boolean-operator-not>? <logical-expression>)|<index-expression>|<comparison-expression>|(<logical-expression> (<boolean-operator-or>|<boolean-operator-and>)? <logical-expression>))|\\\"<string>\\\"|<term>|<search-modifier>|<field><cmp><value>|<field> IN <value-list>|((\"(\" <_RECURSION_> \")\")|<time-opts>|<search-modifier>|(<boolean-operator-not>? <logical-expression>)|<index-expression>|<comparison-expression>|(<logical-expression> (<boolean-operator-or>|<boolean-operator-and>)? <logical-expression>) (NOTFOUND(boolean-operator-or)|NOTFOUND(boolean-operator-and))? (\"(\" <_RECURSION_> \")\")|<time-opts>|<search-modifier>|(<boolean-operator-not>? <logical-expression>)|<index-expression>|<comparison-expression>|(<logical-expression> (<boolean-operator-or>|<boolean-operator-and>)? <logical-expression>)) (NOTFOUND(boolean-operator-or)|NOTFOUND(boolean-operator-and))? (\"(\" NOTFOUND(_RECURSION_) \")\")|(<timeformat>)? (<time-modifier> )*|<index-specifier>|<sourcetype-specifier>|<host-specifier>|<source-specifier>|<savedsplunk-specifier>|<eventtype-specifier>|<eventtypetag-specifier>|<hosttag-specifier>|<tag-specifier>|(NOTFOUND(boolean-operator-not)? (\"(\" <_RECURSION_> \")\")|<time-opts>|<search-modifier>|(<boolean-operator-not>? <logical-expression>)|<index-expression>|<comparison-expression>|(<logical-expression> (<boolean-operator-or>|<boolean-operator-and>)? <logical-expression>))|\\\"<string>\\\"|<term>|<search-modifier>|<field><cmp><value>|<field> IN <value-list>|((\"(\" <_RECURSION_> \")\")|<time-opts>|<search-modifier>|(<boolean-operator-not>? <logical-expression>)|<index-expression>|<comparison-expression>|(<logical-expression> (<boolean-operator-or>|<boolean-operator-and>)? <logical-expression>) (NOTFOUND(boolean-operator-or)|NOTFOUND(boolean-operator-and))? (\"(\" <_RECURSION_> \")\")|<time-opts>|<search-modifier>|(<boolean-operator-not>? <logical-expression>)|<index-expression>|<comparison-expression>|(<logical-expression> (<boolean-operator-or>|<boolean-operator-and>)? <logical-expression>))))? ((by|GROUPBY) NOTFOUND(field-list) (span=NOTFOUND(string:timespan))? )?",
+      "remaining": "      int))? (c|count|dc|distinct_count|mean|avg|stdev|stdevp|var|varp|sum|sumsq|min|max|mode|median|earliest|first|last|latest|(perc|p|exactperc|upperperc)NOTFOUND(int)|list|values|range|estdc|estdc_error|earliest_time|latest_time|NOTFOUND(stats-rate))+ (FROM NOTFOUND(string:namespace) |  | )? (WHERE (\"(\" NOTFOUND(_RECURSION_) \")\")|(_RECURSION_=<string>)? (<earliesttime><indexearliest>|<starttime>|<startdaysago>|<startminutesago>|<starthoursago>|<startmonthsago>|<starttimeu>|<latesttime>|<indexlatest>|<endtime>|<enddaysago>|<endminutesago>|<endhoursago>|<endmonthsago>|<endtimeu>|<searchtimespanhours>|<searchtimespanminutes>|<searchtimespandays>|<searchtimespanmonths>|<daysago>|<minutesago>|<hoursago>|<monthsago> )*|index(=|!=)<string>|sourcetype(=|!=)<string>|host(=|!=)<string>|source(=|!=)<string>|<string>|eventtype(=|!=)<string>|eventtypetag(=|!=)<string>|hosttag(=|!=)<string>|tag(=|!=)<field>::<string>|(NOTFOUND(boolean-operator-not)? (\"(\" NOTFOUND(_RECURSION_) \")\")|(<timeformat>)? (<time-modifier> )*|<index-specifier>|<sourcetype-specifier>|<host-specifier>|<source-specifier>|<savedsplunk-specifier>|<eventtype-specifier>|<eventtypetag-specifier>|<hosttag-specifier>|<tag-specifier>|(NOTFOUND(boolean-operator-not)? (\"(\" <_RECURSION_> \")\")|<time-opts>|<search-modifier>|(<boolean-operator-not>? <logical-expression>)|<index-expression>|<comparison-expression>|(<logical-expression> (<boolean-operator-or>|<boolean-operator-and>)? <logical-expression>))|\\\"<string>\\\"|<term>|<search-modifier>|<field><cmp><value>|<field> IN <value-list>|((\"(\" <_RECURSION_> \")\")|<time-opts>|<search-modifier>|(<boolean-operator-not>? <logical-expression>)|<index-expression>|<comparison-expression>|(<logical-expression> (<boolean-operator-or>|<boolean-operator-and>)? <logical-expression>) (NOTFOUND(boolean-operator-or)|NOTFOUND(boolean-operator-and))? (\"(\" <_RECURSION_> \")\")|<time-opts>|<search-modifier>|(<boolean-operator-not>? <logical-expression>)|<index-expression>|<comparison-expression>|(<logical-expression> (<boolean-operator-or>|<boolean-operator-and>)? <logical-expression>)))|\\\"NOTFOUND(string)\\\"|NOTFOUND(term)|<index-specifier>|<sourcetype-specifier>|<host-specifier>|<source-specifier>|<savedsplunk-specifier>|<eventtype-specifier>|<eventtypetag-specifier>|<hosttag-specifier>|<tag-specifier>|NOTFOUND|!=|\"<\"|\"<\"=|\">\"|\">\"=<lit-_RECURSION_>|NOTFOUND(field) IN \"(\"<value>(,<value>)*\")\"|((\"(\" NOTFOUND(_RECURSION_) \")\")|(<timeformat>)? (<time-modifier> )*|<index-specifier>|<sourcetype-specifier>|<host-specifier>|<source-specifier>|<savedsplunk-specifier>|<eventtype-specifier>|<eventtypetag-specifier>|<hosttag-specifier>|<tag-specifier>|(NOTFOUND(boolean-operator-not)? (\"(\" <_RECURSION_> \")\")|<time-opts>|<search-modifier>|(<boolean-operator-not>? <logical-expression>)|<index-expression>|<comparison-expression>|(<logical-expression> (<boolean-operator-or>|<boolean-operator-and>)? <logical-expression>))|\\\"<string>\\\"|<term>|<search-modifier>|<field><cmp><value>|<field> IN <value-list>|((\"(\" <_RECURSION_> \")\")|<time-opts>|<search-modifier>|(<boolean-operator-not>? <logical-expression>)|<index-expression>|<comparison-expression>|(<logical-expression> (<boolean-operator-or>|<boolean-operator-and>)? <logical-expression>) (NOTFOUND(boolean-operator-or)|NOTFOUND(boolean-operator-and))? (\"(\" <_RECURSION_> \")\")|<time-opts>|<search-modifier>|(<boolean-operator-not>? <logical-expression>)|<index-expression>|<comparison-expression>|(<logical-expression> (<boolean-operator-or>|<boolean-operator-and>)? <logical-expression>)) (NOTFOUND(boolean-operator-or)|NOTFOUND(boolean-operator-and))? (\"(\" NOTFOUND(_RECURSION_) \")\")|(<timeformat>)? (<time-modifier> )*|<index-specifier>|<sourcetype-specifier>|<host-specifier>|<source-specifier>|<savedsplunk-specifier>|<eventtype-specifier>|<eventtypetag-specifier>|<hosttag-specifier>|<tag-specifier>|(NOTFOUND(boolean-operator-not)? (\"(\" <_RECURSION_> \")\")|<time-opts>|<search-modifier>|(<boolean-operator-not>? <logical-expression>)|<index-expression>|<comparison-expression>|(<logical-expression> (<boolean-operator-or>|<boolean-operator-and>)? <logical-expression>))|\\\"<string>\\\"|<term>|<search-modifier>|<field><cmp><value>|<field> IN <value-list>|((\"(\" <_RECURSION_> \")\")|<time-opts>|<search-modifier>|(<boolean-operator-not>? <logical-expression>)|<index-expression>|<comparison-expression>|(<logical-expression> (<boolean-operator-or>|<boolean-operator-and>)? <logical-expression>) (NOTFOUND(boolean-operator-or)|NOTFOUND(boolean-operator-and))? (\"(\" <_RECURSION_> \")\")|<time-opts>|<search-modifier>|(<boolean-operator-not>? <logical-expression>)|<index-expression>|<comparison-expression>|(<logical-expression> (<boolean-operator-or>|<boolean-operator-and>)? <logical-expression>))))? ((by|GROUPBY) NOTFOUND(field-list)  )?",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "prestats",
+         "local",
+         "append",
+         "summariesonly",
+         "allow_old_summaries",
+         "span",
+         "sid",
+         "datamodel",
+         "chunk_size",
+         "savedsearch",
+         "savedsplunk",
+         "field"
+      ]
+   },
+   {
+      "command": "typeahead",
+      "orig": "prefix=NOTFOUND(string) count=NOTFOUND(int) (max_time=NOTFOUND(int))? (index=NOTFOUND(string))? (_RECURSION_=NOTFOUND(num))? (_RECURSION_=NOTFOUND(num))? (collapse=NOTFOUND(bool))?",
+      "remaining": "      ",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "max_time",
+         "index",
+         "_RECURSION_",
+         "_RECURSION_",
+         "collapse",
+         "prefix",
+         "count"
+      ]
+   },
+   {
+      "command": "typer",
+      "orig": "",
+      "remaining": "",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": []
+   },
+   {
+      "command": "union",
+      "orig": "((extendtimerange=NOTFOUND(bool))? (maxtime=NOTFOUND(int))? (maxout=NOTFOUND(int))? (timeout=NOTFOUND(int))?)? NOTFOUND(named-_RECURSION_) | [<string>] (NOTFOUND(named-_RECURSION_) | [<string>])*",
+      "remaining": "(    NOTFOUND(named-_RECURSION_) | [<string>] (NOTFOUND(named-_RECURSION_) | [<string>])*",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "extendtimerange",
+         "maxtime",
+         "maxout",
+         "timeout"
+      ]
+   },
+   {
+      "command": "uniq",
+      "orig": "",
+      "remaining": "",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": []
+   },
+   {
+      "command": "untable",
+      "orig": "NOTFOUND(field) NOTFOUND(field) NOTFOUND(field)",
+      "remaining": "NOTFOUND(field) NOTFOUND(field) NOTFOUND(field)",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": []
+   },
+   {
+      "command": "where",
+      "orig": "(NOTFOUND(field)|NOTFOUND(num)) ((+|-|*|/|%) <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call>)* | ((NOTFOUND(field)|NOTFOUND(string)|NOTFOUND(num)) (. <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call>)*)|((NOTFOUND(field)|NOTFOUND(string)) (+ <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call>)*) | (NOTFOUND(field)|NOTFOUND(string)|NOTFOUND(num)) (\"NOTFOUND(\"|\")\"|\"NOTFOUND(\"=|\")\"=|!=|=|==|LIKE) <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call> | (NOT|!)? ((<field>|<string>|<num>) (\"<\"|\">\"|\"<\"=|\">\"=|!=|=|==|LIKE) <eval-expression>|<eval-function> \"(\" <eval-expression> (\",\" <eval-expression>)* \")\") ((AND|OR|XOR) <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call>)* | abs|case|ceiling|cidrmatch|coalesce|commands|exact|exp|false|floor|if|ifnull|isbool|isint|isnotnull|isnull|isnum|isstr|len|like|ln|log|lower|match|max|md5|min|mvappend|mvcount|mvdedup|mvindex|mvfilter|mvfind|mvjoin|mvrange|mvsort|mvzip|now|null|nullif|pi|pow|random|relative_time|replace|round|searchmatch|sha1|sha256|sha512|sigfig|spath|split|sqrt|strftime|strptime|substr|time|tostring|trim|ltrim|rtrim|true|typeof|upper|urldecode|validate|tonumber|acos|acosh|asin|asinh|atan|atan2|atanh|cos|cosh|hypot|sin|sinh|tan|tanh \"(\" <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call> (\",\" <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call>)* \")\"",
+      "remaining": "(NOTFOUND(field)|NOTFOUND(num)) ((+|-|*|/|%) <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call>)* | ((NOTFOUND(field)|NOTFOUND(string)|NOTFOUND(num)) (. <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call>)*)|((NOTFOUND(field)|NOTFOUND(string)) (+ <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call>)*) | (NOTFOUND(field)|NOTFOUND(string)|NOTFOUND(num)) (\"NOTFOUND(\"|\")\"|\"NOTFOUND(\"=|\")\"=|!=|=|==|LIKE) <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call> | (NOT|!)? ((<field>|<string>|<num>) (\"<\"|\">\"|\"<\"=|\">\"=|!=|=|==|LIKE) <eval-expression>|<eval-function> \"(\" <eval-expression> (\",\" <eval-expression>)* \")\") ((AND|OR|XOR) <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call>)* | abs|case|ceiling|cidrmatch|coalesce|commands|exact|exp|false|floor|if|ifnull|isbool|isint|isnotnull|isnull|isnum|isstr|len|like|ln|log|lower|match|max|md5|min|mvappend|mvcount|mvdedup|mvindex|mvfilter|mvfind|mvjoin|mvrange|mvsort|mvzip|now|null|nullif|pi|pow|random|relative_time|replace|round|searchmatch|sha1|sha256|sha512|sigfig|spath|split|sqrt|strftime|strptime|substr|time|tostring|trim|ltrim|rtrim|true|typeof|upper|urldecode|validate|tonumber|acos|acosh|asin|asinh|atan|atan2|atanh|cos|cosh|hypot|sin|sinh|tan|tanh \"(\" <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call> (\",\" <eval-math-exp> | <eval-concat-exp> | <eval-compare-exp> | <eval-bool-exp> | <eval-function-call>)* \")\"",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": []
+   },
+   {
+      "command": "x11",
+      "orig": "(mult|add)?NOTFOUND(int)?\"(\"NOTFOUND(fieldname)\")\" (as NOTFOUND(newname))?",
+      "remaining": "(mult|add)?NOTFOUND(int)?\"(\"NOTFOUND(fieldname)\")\" ",
+      "renameAs": true,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": []
+   },
+   {
+      "command": "xmlkv",
+      "orig": "maxinputs=NOTFOUND(int)",
+      "remaining": "",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "maxinputs"
+      ]
+   },
+   {
+      "command": "xmlunescape",
+      "orig": "maxinputs=NOTFOUND(int)",
+      "remaining": "",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "maxinputs"
+      ]
+   },
+   {
+      "command": "xpath",
+      "orig": "NOTFOUND(string:xpath) (field=NOTFOUND(field))? (outfield=NOTFOUND(field))? (default=NOTFOUND(string))?",
+      "remaining": "NOTFOUND(string:xpath)   ",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "field",
+         "outfield",
+         "default"
+      ]
+   },
+   {
+      "command": "xyseries",
+      "orig": "(grouped=NOTFOUND(bool))? NOTFOUND(field) NOTFOUND(field) (NOTFOUND(field))+ (sep=NOTFOUND(string))? (format=NOTFOUND(string))?",
+      "remaining": " NOTFOUND(field) NOTFOUND(field) (NOTFOUND(field))+  ",
+      "renameAs": false,
+      "usesEval": false,
+      "usesAggs": false,
+      "keywords": [],
+      "args": [
+         "grouped",
+         "sep",
+         "format"
+      ]
+   }
+]
+
