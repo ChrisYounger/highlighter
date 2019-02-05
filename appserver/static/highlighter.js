@@ -96,6 +96,106 @@ require([
 	// Register a new simple language for prettying up git diffs
 	monaco.languages.register({id: 'spl'});
 	monaco.languages.setMonarchTokensProvider('spl', spl_language.lang);
+	// monaco.languages.registerHoverProvider('ini', {
+	// 	provideHover: function(model, position, token) {
+	// 		return new Promise(function(resolve, reject) {
+	// 			// do somthing
+	// 			if (editors[activeTab].hasOwnProperty('hinting')) {
+	// 				// get all text up to hovered line becuase we need to find what stanza we are in
+	// 				var contents = model.getValueInRange(new monaco.Range(1, 1, position.lineNumber, model.getLineMaxColumn(position.lineNumber))),
+	// 					rex = /^(?:([\w\.]+)|(\[\w+))?.*$/gm,
+	// 					currentStanza = "",
+	// 					currentField = "",
+	// 					hintdata,
+	// 					res;
+	// 				while(res = rex.exec(contents)) {
+	// 					// need this because our rex can match a zero length string
+	// 					if (res.index == rex.lastIndex) {
+	// 						rex.lastIndex++;
+	// 					}
+	// 					if (res[1]) {
+	// 						currentField = res[1];
+	// 					} else if (res[2]) {
+	// 						if (res[2].substr(0,9) === "[default]") {
+	// 							currentStanza = "";
+	// 						} else {
+	// 							currentStanza = res[2];
+	// 						}							
+	// 						currentField = "";
+	// 					}
+	// 				}
+	// 				if (editors[activeTab].hinting.hasOwnProperty(currentStanza) && editors[activeTab].hinting[currentStanza].hasOwnProperty(currentField)) {
+	// 					hintdata = editors[activeTab].hinting[currentStanza][currentField];
+						
+	// 				} else if (editors[activeTab].hinting[""].hasOwnProperty(currentField)) {
+	// 					hintdata = editors[activeTab].hinting[""][currentField];
+					
+	// 				} else {
+	// 					resolve();
+	// 					return;
+	// 				}
+	// 				resolve({
+	// 					// This is what will be highlighted
+	// 					range: new monaco.Range(position.lineNumber, 1, position.lineNumber, model.getLineMaxColumn(position.lineNumber)),
+	// 					contents: [
+	// 						{ value: '**' + hintdata.t + '**' },
+	// 						{ value: '\n' + hintdata.c.replace(/^#/mg,'') + '\n' }
+	// 					]
+	// 				});
+	// 			} else {
+	// 				resolve();
+	// 			}
+	// 		});
+	// 	}
+	// });	
+	function determineCurrentCommand(model, position) {
+		var contents = model.getValue();
+		var tokenized = monaco.editor.tokenize(contents ,'spl');
+		var currentCommand = "search";
+		for (var i = 0; i < tokenized.length; i++) {
+			for (var j = 0; j < tokenized[i].length; j++) {
+				if (tokenized[i][j].type === "command.spl") {
+					var endPosition;
+					if ((j + 1) < tokenized[i].length) {
+						endPosition = tokenized[i][(j+1)].offset;
+					} else {
+						endPosition = getLineLength(i+1);
+					}									//startLineNumber: number, startColumn: number, endLineNumber: number, endColumn: number
+					currentCommand = model.getValueInRange(new monaco.Range( (i+1), (tokenized[i][j].offset+1), (i+1), (endPosition+1) ));
+					//console.log(">", currentCommand);
+				}
+				if ((i+1) >= position.lineNumber  && (tokenized[i][j].offset+1) >= position.column) {
+					return currentCommand;
+				}
+			}
+		}
+		return currentCommand;
+	}
+
+	$.getJSON("/static/app/highlighter/spl.json", function( data ) {
+		console.log(data);
+		monaco.languages.registerHoverProvider('spl', {
+			provideHover: function(model, position) {
+				if (mode !== "spl") {
+					return;
+				}
+				//console.log(model, position.column);
+				//console.log(model.getValueInRange(new monaco.Range(1, 1, position.lineNumber, model.getLineMaxColumn(position.column))));
+				var currentCommand = determineCurrentCommand(model, position);
+				//console.log("in command '" +  currentCommand+ "'");
+				return new Promise(function(resolve, reject) {
+					resolve({
+						range: new monaco.Range(1, 1, model.getLineCount(), model.getLineMaxColumn(model.getLineCount())),
+						contents: [
+							{ value: '**' + currentCommand + '**' },
+							{ value: (data[currentCommand].description || "") + "\n\n```plaintext\n\n\n" + data[currentCommand].syntax + '\n```\n' }
+						]
+					});
+				});
+			}
+		});		
+	});
+
 
 	var $dashboardBody = $('.dashboard-body');
 	var $hl_app_bar = $(".hl_app_bar");

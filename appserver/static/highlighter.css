@@ -39,6 +39,9 @@
     bottom: 0;
     padding-top: 20px;
 }
+.hl_container p {
+    color: white;
+}
 .hl_vs .hl_container {
     background-color: white;
 }
