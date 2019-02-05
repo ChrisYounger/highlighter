@@ -27,7 +27,7 @@
     left: 0;
     right: 0;
     top: 0;
-    bottom: 38px;
+    height: 38px;
     line-height: 38px;
     border-bottom: 1px solid black;
 }
@@ -35,8 +35,15 @@
 	position: absolute;
     left: 0;
     right: 0;
-    top: 39px;
+    top: 38px;
     bottom: 0;
+    padding-top: 20px;
+}
+.hl_vs .hl_container {
+    background-color: white;
+}
+.monaco-editor {
+    /*padding-top: 20px;*/
 }
 .hl_app_bar a,
 .hl_app_bar a:hover {
@@ -50,7 +57,7 @@
 }
 
 .hl_title {
-    margin-left: 20px;
+    margin-left: 22px;
     margin-right: 10px;
     font-weight: bold;
     color: white;
