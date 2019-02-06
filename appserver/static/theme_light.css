@@ -1,0 +1,56 @@
+/* https://github.com/Microsoft/vscode/blob/93028e44ea7752bd53e2471051acbe6362e157e9/src/vs/editor/standalone/common/themes.ts#L13 */
+
+		{ token: '', color: #000000, background: 'fffffe' },
+.invalid{ color: #cd3131 },
+.emphasis{ fontStyle: 'italic' },
+.strong{ fontStyle: 'bold' },
+
+.variable{ color: #001188 },
+.variable.predefined{ color: #4864AA },
+.constant{ color: #dd0000 },
+.comment{ color: #008000 },
+.number{ color: #09885A },
+.number.hex{ color: #3030c0 },
+.regexp{ color: #800000 },
+.annotation{ color: #808080 },
+.type{ color: #008080 },
+
+.delimiter{ color: #000000 },
+.delimiter.html{ color: #383838 },
+.delimiter.xml{ color: #0000FF },
+
+.tag{ color: #800000 },
+.tag.id.jade{ color: #4F76AC },
+.tag.class.jade{ color: #4F76AC },
+.meta.scss{ color: #800000 },
+.metatag{ color: #e00000 },
+.metatag.content.html{ color: #FF0000 },
+.metatag.html{ color: #808080 },
+.metatag.xml{ color: #808080 },
+.metatag.php{ fontStyle: 'bold' },
+
+.key{ color: #863B00 },
+.string.key.json{ color: #A31515 },
+.string.value.json{ color: #0451A5 },
+
+.attribute.name{ color: #FF0000 },
+.attribute.value{ color: #0451A5 },
+.attribute.value.number{ color: #09885A },
+.attribute.value.unit{ color: #09885A },
+.attribute.value.html{ color: #0000FF },
+.attribute.value.xml{ color: #0000FF },
+
+.string{ color: #A31515 },
+.string.html{ color: #0000FF },
+.string.sql{ color: #FF0000 },
+.string.yaml{ color: #0451A5 },
+
+.keyword{ color: #0000FF },
+.keyword.json{ color: #0451A5 },
+.keyword.flow{ color: #AF00DB },
+.keyword.flow.scss{ color: #0000FF },
+
+.operator.scss{ color: #666666 },
+.operator.sql{ color: #778899 },
+.operator.swift{ color: #666666 },
+.predefined.sql{ color: #FF00FF },

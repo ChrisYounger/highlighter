@@ -1,0 +1,55 @@
+/* https://github.com/Microsoft/vscode/blob/93028e44ea7752bd53e2471051acbe6362e157e9/src/vs/editor/standalone/common/themes.ts#L13 */
+
+.a { content: ''; color: #D4D4D4; background: '1E1E1E' };
+.a { content: 'invalid'; color: #f44747 };
+.a { content: 'emphasis'; fontStyle: 'italic' };
+.a { content: 'strong'; fontStyle: 'bold' };
+
+.a { content: 'variable'; color: #74B0DF };
+.a { content: 'variable.predefined'; color: #4864AA };
+.a { content: 'variable.parameter'; color: #9CDCFE };
+.a { content: 'constant'; color: #569CD6 };
+.a { content: 'comment'; color: #608B4E };
+.a { content: 'number'; color: #B5CEA8 };
+.a { content: 'number.hex'; color: #5BB498 };
+.a { content: 'regexp'; color: #B46695 };
+.a { content: 'annotation'; color: #cc6666 };
+.a { content: 'type'; color: #3DC9B0 };
+
+.a { content: 'delimiter'; color: #DCDCDC };
+.a { content: 'delimiter.html'; color: #808080 };
+.a { content: 'delimiter.xml'; color: #808080 };
+
+.a { content: 'tag'; color: #569CD6 };
+.a { content: 'tag.id.jade'; color: #4F76AC };
+.a { content: 'tag.class.jade'; color: #4F76AC };
+.a { content: 'meta.scss'; color: #A79873 };
+.a { content: 'meta.tag'; color: #CE9178 };
+.a { content: 'metatag'; color: #DD6A6F };
+.a { content: 'metatag.content.html'; color: #9CDCFE };
+.a { content: 'metatag.html'; color: #569CD6 };
+.a { content: 'metatag.xml'; color: #569CD6 };
+.a { content: 'metatag.php'; fontStyle: 'bold' };
+
+.a { content: 'key'; color: #9CDCFE };
+.a { content: 'string.key.json'; color: #9CDCFE };
+.a { content: 'string.value.json'; color: #CE9178 };
+
+.a { content: 'attribute.name'; color: #9CDCFE };
+.a { content: 'attribute.value'; color: #CE9178 };
+.a { content: 'attribute.value.number.css'; color: #B5CEA8 };
+.a { content: 'attribute.value.unit.css'; color: #B5CEA8 };
+.a { content: 'attribute.value.hex.css'; color: #D4D4D4 };
+
+.a { content: 'string'; color: #CE9178 };
+.a { content: 'string.sql'; color: #FF0000 };
+
+.a { content: 'keyword'; color: #569CD6 };
+.a { content: 'keyword.flow'; color: #C586C0 };
+.a { content: 'keyword.json'; color: #CE9178 };
+.a { content: 'keyword.flow.scss'; color: #569CD6 };
+
+.a { content: 'operator.scss'; color: #909090 };
+.a { content: 'operator.sql'; color: #778899 };
+.a { content: 'operator.swift'; color: #909090 };
+.a { content: 'predefined.sql'; color: #FF00FF };

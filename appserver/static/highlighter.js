@@ -3,10 +3,16 @@
 /*
 
 TODO
-- add tooltips
-- add flowchart 
+- add tooltips - fix so it highlgights the row not the whole blok
+- add flowchart? Stretch
 - try add auto-indenting
-- fix right click menu
+- push to splunkbase
+- Make a standalone version
+
+Helpful resources:
+- How to write a lanuage: https://microsoft.github.io/monaco-editor/monarch.html#htmlembed
+- API: https://microsoft.github.io/monaco-editor/api/index.html
+- Playground: https://microsoft.github.io/monaco-editor/playground.html#extending-language-services-custom-languages
 
  */
 // The splunk webserver prepends all scripts with a call to i18n_register() for internationalisation. This fails for web-workers becuase they dont know about this function yet.
@@ -96,58 +102,7 @@ require([
 	// Register a new simple language for prettying up git diffs
 	monaco.languages.register({id: 'spl'});
 	monaco.languages.setMonarchTokensProvider('spl', spl_language.lang);
-	// monaco.languages.registerHoverProvider('ini', {
-	// 	provideHover: function(model, position, token) {
-	// 		return new Promise(function(resolve, reject) {
-	// 			// do somthing
-	// 			if (editors[activeTab].hasOwnProperty('hinting')) {
-	// 				// get all text up to hovered line becuase we need to find what stanza we are in
-	// 				var contents = model.getValueInRange(new monaco.Range(1, 1, position.lineNumber, model.getLineMaxColumn(position.lineNumber))),
-	// 					rex = /^(?:([\w\.]+)|(\[\w+))?.*$/gm,
-	// 					currentStanza = "",
-	// 					currentField = "",
-	// 					hintdata,
-	// 					res;
-	// 				while(res = rex.exec(contents)) {
-	// 					// need this because our rex can match a zero length string
-	// 					if (res.index == rex.lastIndex) {
-	// 						rex.lastIndex++;
-	// 					}
-	// 					if (res[1]) {
-	// 						currentField = res[1];
-	// 					} else if (res[2]) {
-	// 						if (res[2].substr(0,9) === "[default]") {
-	// 							currentStanza = "";
-	// 						} else {
-	// 							currentStanza = res[2];
-	// 						}							
-	// 						currentField = "";
-	// 					}
-	// 				}
-	// 				if (editors[activeTab].hinting.hasOwnProperty(currentStanza) && editors[activeTab].hinting[currentStanza].hasOwnProperty(currentField)) {
-	// 					hintdata = editors[activeTab].hinting[currentStanza][currentField];
-						
-	// 				} else if (editors[activeTab].hinting[""].hasOwnProperty(currentField)) {
-	// 					hintdata = editors[activeTab].hinting[""][currentField];
-					
-	// 				} else {
-	// 					resolve();
-	// 					return;
-	// 				}
-	// 				resolve({
-	// 					// This is what will be highlighted
-	// 					range: new monaco.Range(position.lineNumber, 1, position.lineNumber, model.getLineMaxColumn(position.lineNumber)),
-	// 					contents: [
-	// 						{ value: '**' + hintdata.t + '**' },
-	// 						{ value: '\n' + hintdata.c.replace(/^#/mg,'') + '\n' }
-	// 					]
-	// 				});
-	// 			} else {
-	// 				resolve();
-	// 			}
-	// 		});
-	// 	}
-	// });	
+	// Go through the SPL tokens and determine what command is currently hovered
 	function determineCurrentCommand(model, position) {
 		var contents = model.getValue();
 		var tokenized = monaco.editor.tokenize(contents ,'spl');
@@ -162,7 +117,6 @@ require([
 						endPosition = getLineLength(i+1);
 					}									//startLineNumber: number, startColumn: number, endLineNumber: number, endColumn: number
 					currentCommand = model.getValueInRange(new monaco.Range( (i+1), (tokenized[i][j].offset+1), (i+1), (endPosition+1) ));
-					//console.log(">", currentCommand);
 				}
 				if ((i+1) >= position.lineNumber  && (tokenized[i][j].offset+1) >= position.column) {
 					return currentCommand;
@@ -171,21 +125,17 @@ require([
 		}
 		return currentCommand;
 	}
-
+	// Async get the json file of the command descriptions etc - for the tooltips
 	$.getJSON("/static/app/highlighter/spl.json", function( data ) {
-		console.log(data);
 		monaco.languages.registerHoverProvider('spl', {
 			provideHover: function(model, position) {
 				if (mode !== "spl") {
 					return;
 				}
-				//console.log(model, position.column);
-				//console.log(model.getValueInRange(new monaco.Range(1, 1, position.lineNumber, model.getLineMaxColumn(position.column))));
 				var currentCommand = determineCurrentCommand(model, position);
-				//console.log("in command '" +  currentCommand+ "'");
 				return new Promise(function(resolve, reject) {
 					resolve({
-						range: new monaco.Range(1, 1, model.getLineCount(), model.getLineMaxColumn(model.getLineCount())),
+						range: new monaco.Range(position.lineNumber, 1, position.lineNumber, model.getLineLength(position.lineNumber)),
 						contents: [
 							{ value: '**' + currentCommand + '**' },
 							{ value: (data[currentCommand].description || "") + "\n\n```plaintext\n\n\n" + data[currentCommand].syntax + '\n```\n' }
@@ -202,11 +152,13 @@ require([
 	var mode = "spl";
 	var theme = "vs-dark";
 	var model = monaco.editor.createModel("\
-| search earliest=0 latest=now NOT (search=\"*$search_input$*\" OR admin=true OR splunk_server=*IDX01) \n\
+`comment(\"This is a sample SPL query. Paste your own query here...\")`\n\
+| search earliest=0 latest=now NOT (search=\"*$search_input$*\" OR user=*dmin) \n\
 | rest splunk_server=local count=2 aa=bb cc=\"dd\" /services/saved/searches \n\
     [| lookup bads.csv OUTPUT bad_ip  acceptable AS good_ip\n\
     | fields bad_ip \n\
     | format] \n\
+`comment(\"This is a comment\")`\n\
 | rename eai:acl.owner AS Author eai:acl.sharing AS Permissions eai:acl.app AS App search AS \"Saved Search\" \n\
 | eval md5 = md5(filename) \n\
 | stats avg(field) AS avg perc95(dddgf) AS percentage eai:acl.app AS App search AS \"Saved Search\" \n\
@@ -218,7 +170,7 @@ require([
 		scrollBeyondLastLine: false,
 		wordWrap: "on"
 	});
-
+	// Click handlers
 	$hl_app_bar.on("click", "a", function(e){
 		e.preventDefault();
 		var $this = $(this)
@@ -267,5 +219,4 @@ require([
 	DashboardController.ready();
 	
 	$("body").css("overflow","");
-
 });
