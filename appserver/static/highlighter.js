@@ -166,7 +166,7 @@ function startHighlighter(undefined, $, spl_language, mvc, DashboardController, 
 	// Click handlers
 	$hl_app_bar.on("click", "a", function(e){
 		e.preventDefault();
-		var $this = $(this)
+		var $this = $(this);
 		var val = $this.attr("data-val");
 		if ($this.hasClass("hl_theme") || $this.hasClass("hl_mode")) {
 			if ($this.hasClass("hl_theme")) {
@@ -204,7 +204,6 @@ function startHighlighter(undefined, $, spl_language, mvc, DashboardController, 
 		console.log(tokenized);
 		var currentIndentLevel = 0;
 		var deleteNextWhiteSpace = true;
-		var lastOffset = 0;
 		var prevTok = "";
 		var result = "";
 // 0: e {offset: 0, type: "macro.comment.wrap.spl", language: "spl"}

@@ -1,5 +1,7 @@
 # Highlighter
 
+[Web version](https://chrisyounger.github.io/highlighter/appserver/static/)
+
 ![screenshot_light](static/screenshot_light.png)
 ![screenshot_dark](static/screenshot_dark.png)
 
