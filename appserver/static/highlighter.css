@@ -36,7 +36,7 @@
     left: 0;
     right: 0;
     top: 38px;
-    bottom: 0;
+    bottom: 20px;
     padding-top: 20px;
 }
 .hl_vs-dark .hl_container p {
@@ -48,15 +48,18 @@
 .monaco-editor {
     /*padding-top: 20px;*/
 }
-.hl_app_bar a,
-.hl_app_bar a:hover {
+.hl_app_bar a{
 	color: #00A4FD;
     margin: auto 4px;
+    text-decoration: none;
+}
+.hl_app_bar a:hover {
+    text-decoration:underline;
 }
 .hl_app_bar a.hl_selected {
     color: inherit;
-    cursor: default;
     text-decoration: none;
+    cursor: default;
 }
 
 .hl_title {

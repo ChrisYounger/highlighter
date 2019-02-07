@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Splunk Syntax Highlighter</title>
+    <link rel="stylesheet" type="text/css" href="highlighter.css" />
+    <style>
+		body { 
+			margin: 0;
+			font-size: 14px;
+			font-family: Proxima Nova,Roboto,Droid,Helvetica Neue,Helvetica,Arial,sans-serif;
+			background-color: black;
+    		color: white;
+			margin: 0px;
+			display: flex;
+			flex-direction: column;
+			position: fixed;
+			left: 0px;
+			top: 0px;
+			right: 0px;
+			bottom: 0px;
+			overflow: hidden;			
+		}
+		header {
+			line-height: 42px;
+    		margin-left: 24px;
+		}
+		.dashboard-body {
+			position: relative;
+			width: 100%;
+		}
+		.dashboard-body:after, .dashboard-body:before {
+			display: table;
+			content: "";
+			line-height: 0;
+		}
+		.dashboard-body:after {
+			clear: both;
+		}
+	</style>
+</head>
+
+<body>
+    <header>
+        <strong>Splunk</strong> Syntax Highlighter
+    </header>
+    <div class="dashboard-body hl_loading">
+		<div class="hl_spinner spinner">
+			<div class="bounce1"></div>
+			<div class="bounce2"></div>
+			<div class="bounce3"></div>
+		</div>		
+		<div class="hl_app_bar">
+			<span class='hl_title'>Theme:</span>
+			<a href='#' class='hl_theme' data-val='vs'>Light</a> | 
+			<a href='#' class='hl_theme' data-val='vs-dark'>Dark</a>
+            
+			<span class='hl_title hl_title_leftpad'>Highlighting mode:</span>
+			<a href='#' class='hl_mode' data-val='spl'>Search SPL</a> | 
+			<a href='#' class='hl_mode' data-val='ini'>Config file</a> | 
+			<a href='#' class='hl_mode' data-val='html'>Dashboard (HTML)</a> | 
+			<a href='#' class='hl_mode' data-val='javascript'>JS</a> | 
+			<a href='#' class='hl_mode' data-val='css'>CSS</a>
+		</div>
+		<div class="hl_container"></div>
+    </div>
+	<script>var standaloneMode = true; </script>
+	<script src="require.min.js"></script>
+	<script src="highlighter.js"></script>
+</body>
+</html>
+

@@ -17,11 +17,12 @@ Helpful resources:
  */
 // The splunk webserver prepends all scripts with a call to i18n_register() for internationalisation. This fails for web-workers becuase they dont know about this function yet.
 // The options are patch the function on-the-fly like so, or to edit the file on the filesystem (which makes upgrading monaco harder)
+function i18n_register(){/*console.log('i18n_register shimmed');*/}
 (function() { 
 	var mode = "min"; // or dev
 	require.config({ 
 		paths: {
-			'vs': '../app/highlighter/node_modules/monaco-editor/'+mode+'/vs', 
+			'vs': (typeof standaloneMode !== "undefined") ? 'node_modules/monaco-editor/'+mode+'/vs' : '../app/highlighter/node_modules/monaco-editor/'+mode+'/vs', 
 		}
 	});
 	var scripts = document.getElementsByTagName("script");
@@ -38,25 +39,13 @@ Helpful resources:
 	};
 })();
 
-require([
-	"splunkjs/mvc",
-	"jquery",
-	"moment",
-	"splunkjs/mvc/simplexml",
-	"splunkjs/mvc/layoutview",
-	"splunkjs/mvc/simplexml/dashboardview",
-	"vs/editor/editor.main",
-	"app/highlighter/spl_language"
-], function(
-	mvc,
-	$,
-	moment,
-	DashboardController,
-	LayoutView,
-	Dashboard,
-	wat,
-	spl_language
-) {
+if (typeof standaloneMode !== "undefined") {
+	require(["vs/editor/editor.main","jquery","spl_language"], startHighlighter);
+} else {
+	require(["vs/editor/editor.main","jquery","app/highlighter/spl_language","splunkjs/mvc","splunkjs/mvc/simplexml","splunkjs/mvc/layoutview","splunkjs/mvc/simplexml/dashboardview"], startHighlighter);
+}
+
+function startHighlighter(undefined, $, spl_language, mvc, DashboardController, LayoutView, Dashboard) {
 
 	monaco.editor.defineTheme('vs-dark-spl', {
 		base: 'vs-dark',
@@ -200,23 +189,24 @@ require([
 	$hl_app_bar.find("a.hl_mode[data-val=" + (localStorage.getItem('hl_mode') || "spl") + "]").click();
 
 	$(".hl_spinner").remove();
+	$("body").css("overflow","");
 	$dashboardBody.removeClass("hl_loading");	
 	
-	// Setup the splunk components properly
-	$('header').remove();
-	new LayoutView({ "hideAppBar": true, "hideChrome": false, "hideFooter": false, "hideSplunkBar": false, layout: "fixed" })
-		.render()
-		.getContainerElement()
-		.appendChild($dashboardBody[0]);
+	if (typeof standaloneMode === "undefined") {
+		// Setup the splunk components properly
+		$('header').remove();
+		new LayoutView({ "hideAppBar": true, "hideChrome": false, "hideFooter": false, "hideSplunkBar": false, layout: "fixed" })
+			.render()
+			.getContainerElement()
+			.appendChild($dashboardBody[0]);
 
-	new Dashboard({
-		id: 'dashboard',
-		el: $dashboardBody,
-		showTitle: true,
-		editable: true
-	}, { tokens: false }).render();
+		new Dashboard({
+			id: 'dashboard',
+			el: $dashboardBody,
+			showTitle: true,
+			editable: true
+		}, { tokens: false }).render();
 
-	DashboardController.ready();
-	
-	$("body").css("overflow","");
-});
+		DashboardController.ready();
+	}
+}
