@@ -103,7 +103,7 @@ function startHighlighter(undefined, $, spl_language, mvc, DashboardController, 
 					if ((j + 1) < tokenized[i].length) {
 						endPosition = tokenized[i][(j+1)].offset;
 					} else {
-						endPosition = getLineLength(i+1);
+						endPosition = model.getLineLength(i+1);
 					}									//startLineNumber: number, startColumn: number, endLineNumber: number, endColumn: number
 					currentCommand = model.getValueInRange(new monaco.Range( (i+1), (tokenized[i][j].offset+1), (i+1), (endPosition+1) ));
 				}
@@ -168,29 +168,122 @@ function startHighlighter(undefined, $, spl_language, mvc, DashboardController, 
 		e.preventDefault();
 		var $this = $(this)
 		var val = $this.attr("data-val");
-		if ($this.hasClass("hl_theme")) {
-			theme = val;
-			localStorage.setItem('hl_theme', val);
-			$(".hl_theme").removeClass("hl_selected");
+		if ($this.hasClass("hl_theme") || $this.hasClass("hl_mode")) {
+			if ($this.hasClass("hl_theme")) {
+				theme = val;
+				localStorage.setItem('hl_theme', val);
+				$(".hl_theme").removeClass("hl_selected");
+			} else {
+				mode = val;
+				localStorage.setItem('hl_mode', val);
+				$(".hl_mode").removeClass("hl_selected");
+			}
+			// Need to use our custom styles if in spl editor mode
+			if (mode === "spl") { 
+				monaco.editor.setTheme(theme + "-spl");
+			} else {
+				monaco.editor.setTheme(theme);
+			}
+			$dashboardBody.removeClass("hl_vs hl_vs-dark").addClass("hl_" + theme);
+			monaco.editor.setModelLanguage(model, mode);
+			$this.addClass("hl_selected");
+		} else if (val === "autoformat") {
+			reformatCode();
 		} else {
-			mode = val;
-			localStorage.setItem('hl_mode', val);
-			$(".hl_mode").removeClass("hl_selected");
+			alert("coming soon");
 		}
-		// Need to use our custom styles if in spl editor mode
-		if (mode === "spl") { 
-			monaco.editor.setTheme(theme + "-spl");
-		} else {
-			monaco.editor.setTheme(theme);
-		}
-		$dashboardBody.removeClass("hl_vs hl_vs-dark").addClass("hl_" + theme);
-		monaco.editor.setModelLanguage(model, mode);
-		$this.addClass("hl_selected");
 	});
 
 	// Load previous values from local storage
 	$hl_app_bar.find("a.hl_theme[data-val=" + (localStorage.getItem('hl_theme') || "vs-dark") + "]").click();
 	$hl_app_bar.find("a.hl_mode[data-val=" + (localStorage.getItem('hl_mode') || "spl") + "]").click();
+
+	function reformatCode() {
+		var contents = model.getValue().replace(/[\r\n]+/g,'');
+		var tokenized = monaco.editor.tokenize(contents ,'spl');
+		console.log(tokenized);
+		var currentIndentLevel = 0;
+		var deleteNextWhiteSpace = true;
+		var lastOffset = 0;
+		var prevTok = "";
+		var result = "";
+// 0: e {offset: 0, type: "macro.comment.wrap.spl", language: "spl"}
+// 1: e {offset: 10, type: "macro.comment.spl", language: "spl"}
+// 2: e {offset: 66, type: "macro.comment.wrap.spl", language: "spl"}
+// 3: e {offset: 69, type: "pipe.spl", language: "spl"}
+		for (var i = 0; i < tokenized.length; i++) {
+			for (var j = 0; j < tokenized[i].length; j++) {
+				// Skip whitespace after a pipe, becuase we add it ourselves to be exactly 1 character
+				if (deleteNextWhiteSpace && tokenized[i][j].type === "white.spl") {
+					continue;
+				}
+				deleteNextWhiteSpace = false;
+				// Force a newline before a pipe, except if we just started a new line from a left square bracket
+				if (tokenized[i][j].type === "pipe.spl") {
+					if (prevTok !== "delimiter.square.spl.open"){
+						if (result) {
+							result += "\n" + " ".repeat(3 * currentIndentLevel);
+						}
+					}
+					deleteNextWhiteSpace = true;
+				}
+				// TODO there is a bug here in that this might be a few delimiters joined together.
+				// Force a new line before an opening left square bracket
+				if (tokenized[i][j].type === "delimiter.square.spl"){
+					if (contents.substring(tokenized[i][j].offset, tokenized[i][j].offset+1) === "[") {
+						currentIndentLevel++;
+						tokenized[i][j].type = "delimiter.square.spl.open";
+						result += "\n" + " ".repeat(3 * currentIndentLevel);
+					} else {
+						currentIndentLevel--;
+						tokenized[i][j].type = "delimiter.square.spl.close";
+					}
+				}
+				// Figure out how many characters the token is
+				var endPosition;
+				if ((j + 1) < tokenized[i].length) {
+					endPosition = tokenized[i][(j+1)].offset;
+				} else {
+					endPosition = contents.length;
+				}
+				var tok = contents.substring(tokenized[i][j].offset, endPosition);
+				//console.log(tokenized[i][j].offset, endPosition, contents.length, tok);
+				result += tok;
+				// always make sure there is exactly one space between pipe and command
+				if (tokenized[i][j].type === "pipe.spl") {
+					result += " ";
+				}
+				// Force a new line after close square bracket
+				if (tokenized[i][j].type === "delimiter.square.spl.close") {
+					result += "\n";
+					deleteNextWhiteSpace = true;
+				}
+				prevTok = tokenized[i][j].type;
+			}
+		}
+		// Dodgy fixes. remove trailing spaces, remove blank lines
+		result = result.replace(/\s+\n/gm,"\n").replace(/^\n/gm,'');
+		// set value in a way that it can be undo'ed
+		//model.setValue(result);
+		editor.executeEdits('beautifier', [{ identifier: 'delete', range: new monaco.Range(1, 1, 10000, 1), text: '', forceMoveMarkers: true }]);
+		editor.executeEdits('beautifier', [{ identifier: 'insert', range: new monaco.Range(1, 1, 1, 1), text: result, forceMoveMarkers: true }]);
+		//editor.setSelection(new monaco.Range(0, 0, 0, 0));
+		//model.setPosition(currentPosition);		
+	}
+
+	// Set the "CTLR-|" hotkey to reformat 
+	$(window).on('keydown', function(event) {
+		if (event.ctrlKey || event.metaKey) {
+			switch (event.which) {
+			case 220: // pipe character
+				event.preventDefault();
+				if (mode === "spl") {
+					reformatCode();
+				}
+				break;
+			}
+		}
+	});
 
 	$(".hl_spinner").remove();
 	$("body").css("overflow","");
