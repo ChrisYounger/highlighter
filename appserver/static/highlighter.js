@@ -114,8 +114,12 @@ function startHighlighter(undefined, $, spl_language, mvc, DashboardController, 
 		}
 		return currentCommand;
 	}
+	var tooltips_path = "/static/app/highlighter/spl.json";
+	if (typeof standaloneMode !== "undefined") {
+		tooltips_path = "spl.json";
+	}
 	// Async get the json file of the command descriptions etc - for the tooltips
-	$.getJSON("/static/app/highlighter/spl.json", function( data ) {
+	$.getJSON(tooltips_path, function( data ) {
 		monaco.languages.registerHoverProvider('spl', {
 			provideHover: function(model, position) {
 				if (mode !== "spl") {
