@@ -1702,7 +1702,7 @@ xyseriesCommand: [
                     ],
                     commonPostamble: [
                         [/[<>=,\+\.]/, {token: 'operator'}],
-                        [/[^\|\s<>=!]+/, 'identifier.postamble'],
+                        [/[^\|\s<>=!\(\)\[\]]+/, 'identifier.postamble'],
                         ['', '', '@pop'],
                     ],
                     renameAs: [
@@ -1713,7 +1713,7 @@ xyseriesCommand: [
                     ],
                     whitespace: [
                         [/\s+/, 'white'],
-                        [/(`comment\(\")([^\"]*)(\"\)`)/, ['macro.comment.wrap','macro.comment','macro.comment.wrap']],
+                        [/(`comment\s*\(\s*\")(.*?)(\"\s*\)\s*`)/, ['macro.comment.wrap.open','macro.comment','macro.comment.wrap.close']],
                         [/(`)(\w+)([^`]*)(`)/, ['macro.function','macro.function','macro.args','macro.function']]
                     ],
                     numbers: [

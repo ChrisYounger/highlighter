@@ -3,11 +3,9 @@
 /*
 
 TODO
-- add tooltips - fix so it highlgights the row not the whole blok
-- add flowchart? Stretch
-- try add auto-indenting
-- push to splunkbase
-- Make a standalone version
+- add flowchart? 
+- add better descriptions in pullout drawer
+- add URL state
 
 Helpful resources:
 - How to write a lanuage: https://microsoft.github.io/monaco-editor/monarch.html#htmlembed
@@ -139,16 +137,42 @@ function startHighlighter(undefined, $, spl_language, mvc, DashboardController, 
 		});		
 	});
 
+	function fallbackCopyTextToClipboard(text) {
+		var textArea = document.createElement("textarea");
+		textArea.value = text;
+		document.body.appendChild(textArea);
+		textArea.focus();
+		textArea.select();
+		try {
+			var successful = document.execCommand('copy');
+			var msg = successful ? 'successful' : 'unsuccessful';
+			showToast('Copied to clipboard!');
+		} catch (err) {
+			console.error('Fallback: Oops, unable to copy', err);
+		}
+		document.body.removeChild(textArea);
+	}
+	function copyTextToClipboard(text) {
+		if (!navigator.clipboard) {
+			fallbackCopyTextToClipboard(text);
+			return;
+		}
+		navigator.clipboard.writeText(text).then(function () {
+			showToast('Copied to clipboard!');
+		}, function (err) {
+			console.error('Async: Could not copy text: ', err);
+		});
+	}
 
 	var $dashboardBody = $('.dashboard-body');
 	var $hl_app_bar = $(".hl_app_bar");
 	var mode = "spl";
 	var theme = "vs-dark";
 	var model = monaco.editor.createModel("\
-`comment(\"This is a sample SPL query. Paste your own query here...\")`\n\
+\n\n`comment(\"Paste SPL query here...\")`\n\n\
 | search earliest=0 latest=now NOT (search=\"*$search_input$*\" OR user=*dmin) \n\
 | rest splunk_server=local count=2 aa=bb cc=\"dd\" /services/saved/searches \n\
-    [| lookup bads.csv OUTPUT bad_ip  acceptable AS good_ip\n\
+    | append [| lookup bads.csv OUTPUT bad_ip  acceptable AS good_ip\n\
     | fields bad_ip \n\
     | format] \n\
 `comment(\"This is a comment\")`\n\
@@ -189,52 +213,104 @@ function startHighlighter(undefined, $, spl_language, mvc, DashboardController, 
 			$this.addClass("hl_selected");
 		} else if (val === "autoformat") {
 			reformatCode();
+		} else if (val === "copy") {
+			editor.setSelection(new monaco.Range(0, 0, 999999999, 999999999));
+			editor.trigger('source','editor.action.clipboardCopyAction');
+			showToast('Copied to clipboard!');
+		} else if (val === "copyhtml") {
+			var coloredPromise = monaco.editor.colorize(model.getValue(), mode);
+			var css = $(".monaco-colors").text();
+			var stylemap = {};
+			css.replace(/\.(\S+)\s*{([^}]+)}/g, function(all, g1, g2){
+				stylemap[g1] = $.trim(g2);
+				return '';
+			});
+			var fgcolor = $(".monaco-editor").css('color');
+			var bgcolor = $(".monaco-editor").css('background-color');
+			coloredPromise.then(function (html) {
+				var str = "<div style='font-family: Consolas, \"Courier New\", monospace; font-weight: normal; font-size: 14px; line-height: 19px; letter-spacing: 0px; color:"+fgcolor+"; background-color:"+bgcolor+";padding:10px;margin:5px;'>"
+				str += html.replace(/<span class="([^"]+)">/g, function (all, g1) {
+					var classes = g1.split(" ");
+					var str = '<span style="';
+					for (var k = 0; k < classes.length; k++) {
+						if (stylemap.hasOwnProperty(classes[k])) {
+							str += stylemap[classes[k]];
+							if (! /;\s*$/.test(stylemap[classes[k]])) {
+								str += ";";
+							}
+						} else {
+							console.error("cant find style:" + classes[k])
+						}
+					}
+					return str + '">';
+				})
+				str += "</div>";
+				copyTextToClipboard(str);
+			});
 		} else {
 			alert("coming soon");
 		}
 	});
+
+	function showToast(message) {
+		var t = $('.hl_toaster');
+		t.find('span').text(message);
+		t.addClass('hl_show');
+		setTimeout(function(){
+			t.removeClass('hl_show');
+		},3000);
+	}
 
 	// Load previous values from local storage
 	$hl_app_bar.find("a.hl_theme[data-val=" + (localStorage.getItem('hl_theme') || "vs-dark") + "]").click();
 	$hl_app_bar.find("a.hl_mode[data-val=" + (localStorage.getItem('hl_mode') || "spl") + "]").click();
 
 	function reformatCode() {
+		// TODO there is a bug here where \n's inside strings will be removed
 		var contents = model.getValue().replace(/[\r\n]+/g,'');
 		var tokenized = monaco.editor.tokenize(contents ,'spl');
-		console.log(tokenized);
 		var currentIndentLevel = 0;
 		var deleteNextWhiteSpace = true;
+		var doNewLine = false;
+		var breakOnNextToken = false;
 		var prevTok = "";
 		var result = "";
-// 0: e {offset: 0, type: "macro.comment.wrap.spl", language: "spl"}
-// 1: e {offset: 10, type: "macro.comment.spl", language: "spl"}
-// 2: e {offset: 66, type: "macro.comment.wrap.spl", language: "spl"}
-// 3: e {offset: 69, type: "pipe.spl", language: "spl"}
 		for (var i = 0; i < tokenized.length; i++) {
 			for (var j = 0; j < tokenized[i].length; j++) {
+				doNewLine = false;
 				// Skip whitespace after a pipe, becuase we add it ourselves to be exactly 1 character
-				if (deleteNextWhiteSpace && tokenized[i][j].type === "white.spl") {
+				if ((deleteNextWhiteSpace || breakOnNextToken) && tokenized[i][j].type === "white.spl") {
 					continue;
 				}
 				deleteNextWhiteSpace = false;
-				// Force a newline before a pipe, except if we just started a new line from a left square bracket
-				if (tokenized[i][j].type === "pipe.spl") {
-					if (prevTok !== "delimiter.square.spl.open"){
-						if (result) {
-							result += "\n" + " ".repeat(3 * currentIndentLevel);
-						}
-					}
-					deleteNextWhiteSpace = true;
+				if (breakOnNextToken) {
+					doNewLine = true;
 				}
-				// TODO there is a bug here in that this might be a few delimiters joined together.
+				breakOnNextToken = false
+				if (tokenized[i][j].type === "macro.comment.wrap.close.spl") {
+					breakOnNextToken = true;
+				}				
+				// Force a newline before a pipe, except if we just started a new line from a left square bracket
+				if (tokenized[i][j].type === "pipe.spl" || tokenized[i][j].type === "delimiter.square.spl.close") {
+					//deleteNextWhiteSpace = true;
+					doNewLine = true;
+				}
+				if (tokenized[i][j].type === "macro.comment.wrap.open.spl"){
+					// add extra blank line before comments
+					if (prevTok !== "macro.comment.wrap.close.spl") {
+						result += "\n";
+					}
+					doNewLine = true;
+				}
+				// TODO there is a bug here in that this might be a few delimiters joined together. This would be super rare though
 				// Force a new line before an opening left square bracket
 				if (tokenized[i][j].type === "delimiter.square.spl"){
-					if (contents.substring(tokenized[i][j].offset, tokenized[i][j].offset+1) === "[") {
+					if (contents.substr(tokenized[i][j].offset, 1) === "[") {
 						currentIndentLevel++;
 						tokenized[i][j].type = "delimiter.square.spl.open";
-						result += "\n" + " ".repeat(3 * currentIndentLevel);
 					} else {
 						currentIndentLevel--;
+						currentIndentLevel = Math.max(currentIndentLevel, 0);
 						tokenized[i][j].type = "delimiter.square.spl.close";
 					}
 				}
@@ -246,28 +322,32 @@ function startHighlighter(undefined, $, spl_language, mvc, DashboardController, 
 					endPosition = contents.length;
 				}
 				var tok = contents.substring(tokenized[i][j].offset, endPosition);
-				//console.log(tokenized[i][j].offset, endPosition, contents.length, tok);
-				result += tok;
+				if (doNewLine) {
+					result += "\n" + "\t".repeat(currentIndentLevel);
+					deleteNextWhiteSpace = true;
+				}
+				if (tokenized[i][j].type === "white.spl") {
+					result += " ";
+				} else {
+					result += tok;
+				}
 				// always make sure there is exactly one space between pipe and command
 				if (tokenized[i][j].type === "pipe.spl") {
 					result += " ";
-				}
-				// Force a new line after close square bracket
-				if (tokenized[i][j].type === "delimiter.square.spl.close") {
-					result += "\n";
 					deleteNextWhiteSpace = true;
 				}
-				prevTok = tokenized[i][j].type;
+
+				if (tokenized[i][j].type !== "white.spl") {
+					prevTok = tokenized[i][j].type;
+				}
 			}
 		}
-		// Dodgy fixes. remove trailing spaces, remove blank lines
-		result = result.replace(/\s+\n/gm,"\n").replace(/^\n/gm,'');
+		// remove any leading blank lines or spaces
+		result = result.replace(/^\s+/,"");
+
 		// set value in a way that it can be undo'ed
-		//model.setValue(result);
 		editor.executeEdits('beautifier', [{ identifier: 'delete', range: new monaco.Range(1, 1, 10000, 1), text: '', forceMoveMarkers: true }]);
 		editor.executeEdits('beautifier', [{ identifier: 'insert', range: new monaco.Range(1, 1, 1, 1), text: result, forceMoveMarkers: true }]);
-		//editor.setSelection(new monaco.Range(0, 0, 0, 0));
-		//model.setPosition(currentPosition);		
 	}
 
 	// Set the "CTLR-|" hotkey to reformat 

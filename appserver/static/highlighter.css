@@ -116,3 +116,27 @@ html .hl_spinner {
     transform: scale(1.0);
   }
 }
+
+.hl_toaster {
+	background-color: #53a051;
+    width: 232px;
+    height: 60px;
+    position: absolute;
+    top: 100px;
+    margin-left: -116px;
+    left: 50%;
+    line-height: 60px;
+    padding: 0 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    color: white;
+	visibility: hidden;
+	opacity: 0;
+	transform: translateY(30px);
+    text-align: center;
+	transition: all 200ms;
+}
+.hl_toaster.hl_show {
+	opacity: 1;
+	visibility: visible;
+	transform: translateY(0);
+}
