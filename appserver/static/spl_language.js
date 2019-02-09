@@ -1713,8 +1713,8 @@ xyseriesCommand: [
                     ],
                     whitespace: [
                         [/\s+/, 'white'],
-                        [/(`comment\s*\(\s*\")(.*?)(\"\s*\)\s*`)/, ['macro.comment.wrap.open','macro.comment','macro.comment.wrap.close']],
-                        [/(`)(\w+)([^`]*)(`)/, ['macro.function','macro.function','macro.args','macro.function']]
+                        [/(`\s*comment\s*\(\s*\")(.*?)(\"\s*\)\s*`)/, ['macro.comment.wrap.open','macro.comment','macro.comment.wrap.close']],
+                        [/(`)(\s*\w+)([^`]*)(`)/, ['macro.function','macro.function','macro.args','macro.function']]
                     ],
                     numbers: [
                         [/0[xX][0-9a-fA-F]*/, 'number'],

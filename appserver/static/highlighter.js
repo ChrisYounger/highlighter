@@ -4,8 +4,6 @@
 
 TODO
 - add flowchart? 
-- add better descriptions in pullout drawer
-- add URL state
 
 Helpful resources:
 - How to write a lanuage: https://microsoft.github.io/monaco-editor/monarch.html#htmlembed
@@ -66,6 +64,7 @@ function startHighlighter(undefined, $, spl_language, mvc, DashboardController, 
 			{ token: 'macro.function', foreground: '9CDCFE' }, // macro name
 		]	
 	});
+
 	monaco.editor.defineTheme('vs-spl', {
 		base: 'vs',
 		inherit: true,
@@ -88,57 +87,69 @@ function startHighlighter(undefined, $, spl_language, mvc, DashboardController, 
 	});
 
 	var hashAtLoad = decodeURIComponent(document.location.hash.substr(1));
+	var tokens = [];
+	var data = {};
+	var $dashboardBody = $('.dashboard-body');
+	var $hl_description = $(".hl_description");
+	var $hl_resize_height = $(".hl_resize_height");
+	var $hl_container = $(".hl_container");
+	var $hl_app_bar = $(".hl_app_bar");
+	var mode = "spl";
+	var theme = "vs-dark";
+	var model = monaco.editor.createModel("\n\n\n`comment(\"Paste SPL query here...\")`\n\n`comment(\"All processing is client-side. No content is sent to the server...\")`\n");
+	var editor = monaco.editor.create($hl_container[0], {
+		automaticLayout: true,
+		model: model,
+		scrollBeyondLastLine: false,
+		wordWrap: "on"
+	});
 
 	// Register a new simple language for prettying up git diffs
 	monaco.languages.register({id: 'spl'});
 	monaco.languages.setMonarchTokensProvider('spl', spl_language.lang);
 	// Go through the SPL tokens and determine what command is currently hovered
-	function determineCurrentCommand(model, position) {
+	function rebuildTokens() {
+		if (mode !== "spl") {
+			return;
+		}
 		var contents = model.getValue();
 		var tokenized = monaco.editor.tokenize(contents ,'spl');
-		var currentCommand = "search";
+		tokens = [{cmd: 'search', start:0, line:0, end:0}];
 		for (var i = 0; i < tokenized.length; i++) {
 			for (var j = 0; j < tokenized[i].length; j++) {
 				if (tokenized[i][j].type === "command.spl") {
-					var endPosition;
-					if ((j + 1) < tokenized[i].length) {
-						endPosition = tokenized[i][(j+1)].offset;
-					} else {
-						endPosition = model.getLineLength(i+1);
-					}									//startLineNumber: number, startColumn: number, endLineNumber: number, endColumn: number
-					currentCommand = model.getValueInRange(new monaco.Range( (i+1), (tokenized[i][j].offset+1), (i+1), (endPosition+1) ));
-				}
-				if ((i+1) >= position.lineNumber  && (tokenized[i][j].offset+1) >= position.column) {
-					return currentCommand;
+					var endPosition = ((j + 1) < tokenized[i].length) ? tokenized[i][(j+1)].offset : model.getLineLength(i+1);
+					tokens.push({
+						cmd: model.getValueInRange(new monaco.Range( (i+1), (tokenized[i][j].offset+1), (i+1), (endPosition+1) )),
+						line: i + 1,
+						start: j + 1,
+						// get the start point of the next token or the end of the line if there is no next token
+						end: endPosition + 1,
+					});
 				}
 			}
 		}
-		return currentCommand;
 	}
-	var tooltips_path = "/static/app/highlighter/spl.json";
-	if (typeof standaloneMode !== "undefined") {
-		tooltips_path = "spl.json";
-	}
-	// Async get the json file of the command descriptions etc - for the tooltips
-	$.getJSON(tooltips_path, function( data ) {
-		monaco.languages.registerHoverProvider('spl', {
-			provideHover: function(model, position) {
-				if (mode !== "spl") {
-					return;
-				}
-				var currentCommand = determineCurrentCommand(model, position);
-				return new Promise(function(resolve, reject) {
-					resolve({
-						range: new monaco.Range(position.lineNumber, 1, position.lineNumber, model.getLineLength(position.lineNumber)),
-						contents: [
-							{ value: '**' + currentCommand + '**' },
-							{ value: (data[currentCommand].description || "") + "\n\n```plaintext\n\n\n" + data[currentCommand].syntax + '\n```\n' }
-						]
-					});
-				});
+	
+	// Determing what command is in the current position - including all fields and arguments
+	function determineCurrentCommandFull(position) {
+		for (var i = 0; i < tokens.length; i++) {
+			if (tokens[i].line > position.lineNumber || (tokens[i].line === position.lineNumber+1 && position.column >= tokens[i].start)) {
+				return {cmd: tokens[i-1].cmd, start_line: tokens[i-1].line, start_col: tokens[i-1].start, end_line: tokens[i].line, end_col: tokens[i].start};
 			}
-		});		
-	});
+		}
+		return {cmd: tokens[tokens.length-1].cmd, start_line: tokens[tokens.length-1].line, start_col: tokens[tokens.length-1].start, end_line: 999999999, end_col: 999999999};
+	}
+
+	// Determing what command is in the current position - excluding all fields and arguments
+	function determineCurrentCommandExact(position) {
+		for (var i = 0; i < tokens.length; i++) {
+			if ((tokens[i].line === position.lineNumber && position.column >= tokens[i].start && position.column < tokens[i].end)) {
+				return {cmd: tokens[i].cmd, start_line: tokens[i].line, start_col: tokens[i].start, end_line: tokens[i].line, end_col: tokens[i].end};
+			}
+		}
+		return null;
+	}
 
 	function fallbackCopyTextToClipboard(text) {
 		var textArea = document.createElement("textarea");
@@ -155,6 +166,7 @@ function startHighlighter(undefined, $, spl_language, mvc, DashboardController, 
 		}
 		document.body.removeChild(textArea);
 	}
+
 	function copyTextToClipboard(text) {
 		if (!navigator.clipboard) {
 			fallbackCopyTextToClipboard(text);
@@ -167,29 +179,34 @@ function startHighlighter(undefined, $, spl_language, mvc, DashboardController, 
 		});
 	}
 
-	var $dashboardBody = $('.dashboard-body');
-	var $hl_app_bar = $(".hl_app_bar");
-	var mode = "spl";
-	var theme = "vs-dark";
-	var model = monaco.editor.createModel("\
-\n\n`comment(\"Paste SPL query here...\")`\n\n\
-| search earliest=0 latest=now NOT (search=\"*$search_input$*\" OR user=*dmin) \n\
-| rest splunk_server=local count=2 aa=bb cc=\"dd\" /services/saved/searches \n\
-    | append [| lookup bads.csv OUTPUT bad_ip  acceptable AS good_ip\n\
-    | fields bad_ip \n\
-    | format] \n\
-`comment(\"This is a comment\")`\n\
-| rename eai:acl.owner AS Author eai:acl.sharing AS Permissions eai:acl.app AS App search AS \"Saved Search\" \n\
-| eval md5 = md5(filename) \n\
-| stats avg(field) AS avg perc95(dddgf) AS percentage eai:acl.app AS App search AS \"Saved Search\" \n\
-| fields Author Permissions App \"Saved Search\"\n\
-| eval datamodel2=case(match(search, \"src_dest_tstats\"), mvappend(\"Network_Traffic\"), match(search, \"(access_tracker|inactive_account_usage)\")");
-	var editor = monaco.editor.create($(".hl_container")[0], {
-		automaticLayout: true,
-		model: model,
-		scrollBeyondLastLine: false,
-		wordWrap: "on"
+	var tooltips_path = "/static/app/highlighter/spl.json";
+	if (typeof standaloneMode !== "undefined") {
+		tooltips_path = "spl.json";
+	}
+
+	// Async get the json file of the command descriptions etc - for the tooltips
+	$.getJSON(tooltips_path, function( d ) {
+		data = d;
+		/*  tooltips are annoying
+		monaco.languages.registerHoverProvider('spl', {
+			provideHover: function(model, position) {
+				if (mode !== "spl") {
+					return;
+				}
+				var tok = determineCurrentCommandFull(position);
+				return new Promise(function(resolve, reject) {
+					resolve({
+						range: new monaco.Range(tok.start_line, tok.start_col, tok.end_line, tok.end_col),
+						contents: [
+							{ value: '**' + tok.cmd + '**' },
+							{ value: (data[tok.cmd].shortdesc || "") + "\n\n```plaintext\n\n\n" + data[tok.cmd].syntax + '\n```\n' }
+						]
+					});
+				});
+			}
+		});*/
 	});
+
 	// Click handlers
 	$hl_app_bar.on("click", "a", function(e){
 		e.preventDefault();
@@ -214,6 +231,11 @@ function startHighlighter(undefined, $, spl_language, mvc, DashboardController, 
 			$dashboardBody.removeClass("hl_vs hl_vs-dark").addClass("hl_" + theme);
 			monaco.editor.setModelLanguage(model, mode);
 			$this.addClass("hl_selected");
+			if (mode !== "spl") {
+				$hl_description.add($hl_resize_height).hide();
+			} else {
+				$hl_description.add($hl_resize_height).show();
+			}
 			updateUrlHash();
 		} else if (val === "autoformat") {
 			reformatCode();
@@ -266,7 +288,7 @@ function startHighlighter(undefined, $, spl_language, mvc, DashboardController, 
 	}
 
 	function reformatCode() {
-		// TODO there is a bug here where \n's inside strings will be removed
+		// TODO there is a bug here where \n's inside strings will be removed!!
 		var contents = model.getValue().replace(/[\r\n]+/g,'');
 		var tokenized = monaco.editor.tokenize(contents ,'spl');
 		var currentIndentLevel = 0;
@@ -374,11 +396,53 @@ function startHighlighter(undefined, $, spl_language, mvc, DashboardController, 
 		}
 	});
 
+	editor.onDidChangeCursorPosition(function (e) {
+		var tok = determineCurrentCommandFull(e.position);
+		if (tok && data.hasOwnProperty(tok.cmd)) {
+			var m = (data[tok.cmd].description || "");
+			$hl_description.empty().append($("<h2></h2>").text("| " + tok.cmd));
+
+			var p = m.replace(/\\p\\/g,"\\i\\ \\i\\").split(/\\i\\/);
+			for (var i = 0; i < p.length; i++) {
+				$("<p class='hl_desc'></p>").text(p[i]).appendTo($hl_description);
+			}
+
+			$hl_description.append(
+				$("<h4>Syntax</h4>"),
+				$("<span class='hl_pre'></span>").text(data[tok.cmd].syntax || ""),				
+			);				
+			for (var i = 1; i < 6; i++) {
+				if (data[tok.cmd].hasOwnProperty("example" + i)) {
+					$hl_description.append(
+						$("<h4>Example "+ i + ": </h4>").append("<span class='hl_ex'>" + (data[tok.cmd]['comment' + i] || "") + "</span"),
+						$("<span class='hl_pre'></span>").text(data[tok.cmd]['example' + i])
+					);
+				}
+			}
+		} else {
+			$hl_description.empty().append("<div class='hl_dim'>Click a Splunk command for documentation..</div>");
+		}
+	});
+
+	// Handler for resizing the tree pane/editor divider
+	$hl_resize_height.on("mousedown", function(e) {
+		e.preventDefault();
+		$(document).on("mousemove.rowresize", function(e) {
+			$hl_description.css("flex-basis", (window.innerHeight - e.pageY) + "px");
+			$hl_container.css("flex-basis", (e.pageY - 81) + "px");
+		});
+	});
+	$(document).on("mouseup",function(e) {
+		$(document).off('mousemove.rowresize');
+	});
+
 	// On changes update URL hash
-	editor.onDidChangeModelContent(updateUrlHash);
+	editor.onDidChangeModelContent(function(){
+		updateUrlHash();
+		rebuildTokens();
+	});
 
 	// Load previous values from local storage, or load from URL hash
-	console.log(hashAtLoad);
 	if (hashAtLoad) {
 		hashAtLoad.replace(/^([^,]+),([^,]+),([\s\S]*)$/, function(all, g1, g2, g3){
 			$hl_app_bar.find("a.hl_theme[data-val=" + g1 + "]").click();
