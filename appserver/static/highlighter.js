@@ -37,6 +37,7 @@ function i18n_register(){/*console.log('i18n_register shimmed');*/}
 	};
 })();
 
+// This javascript supports running on GitHub published pages (standalone mode) or inside Splunk as an app.
 if (typeof standaloneMode !== "undefined") {
 	require(["vs/editor/editor.main","jquery","spl_language"], startHighlighter);
 } else {
@@ -85,6 +86,8 @@ function startHighlighter(undefined, $, spl_language, mvc, DashboardController, 
 			{ token: 'macro.function', foreground: 'FF00FF' }, // macro name
 		]	
 	});
+
+	var hashAtLoad = decodeURIComponent(document.location.hash.substr(1));
 
 	// Register a new simple language for prettying up git diffs
 	monaco.languages.register({id: 'spl'});
@@ -211,6 +214,7 @@ function startHighlighter(undefined, $, spl_language, mvc, DashboardController, 
 			$dashboardBody.removeClass("hl_vs hl_vs-dark").addClass("hl_" + theme);
 			monaco.editor.setModelLanguage(model, mode);
 			$this.addClass("hl_selected");
+			updateUrlHash();
 		} else if (val === "autoformat") {
 			reformatCode();
 		} else if (val === "copy") {
@@ -260,10 +264,6 @@ function startHighlighter(undefined, $, spl_language, mvc, DashboardController, 
 			t.removeClass('hl_show');
 		},3000);
 	}
-
-	// Load previous values from local storage
-	$hl_app_bar.find("a.hl_theme[data-val=" + (localStorage.getItem('hl_theme') || "vs-dark") + "]").click();
-	$hl_app_bar.find("a.hl_mode[data-val=" + (localStorage.getItem('hl_mode') || "spl") + "]").click();
 
 	function reformatCode() {
 		// TODO there is a bug here where \n's inside strings will be removed
@@ -350,6 +350,16 @@ function startHighlighter(undefined, $, spl_language, mvc, DashboardController, 
 		editor.executeEdits('beautifier', [{ identifier: 'insert', range: new monaco.Range(1, 1, 1, 1), text: result, forceMoveMarkers: true }]);
 	}
 
+	function updateUrlHash(){
+		var hash = "#" + theme + "," + mode + "," + encodeURIComponent(model.getValue());
+		if (history.replaceState) {
+			// TODO we might not need to encodeURIComponent when using replaceState?
+			history.replaceState(null, null, hash);
+		} else {
+			location.hash = hash;
+		}		
+	}
+
 	// Set the "CTLR-|" hotkey to reformat 
 	$(window).on('keydown', function(event) {
 		if (event.ctrlKey || event.metaKey) {
@@ -363,6 +373,22 @@ function startHighlighter(undefined, $, spl_language, mvc, DashboardController, 
 			}
 		}
 	});
+
+	// On changes update URL hash
+	editor.onDidChangeModelContent(updateUrlHash);
+
+	// Load previous values from local storage, or load from URL hash
+	console.log(hashAtLoad);
+	if (hashAtLoad) {
+		hashAtLoad.replace(/^([^,]+),([^,]+),([\s\S]*)$/, function(all, g1, g2, g3){
+			$hl_app_bar.find("a.hl_theme[data-val=" + g1 + "]").click();
+			$hl_app_bar.find("a.hl_mode[data-val=" + g2 + "]").click();
+			model.setValue(g3);	
+		})		
+	} else {
+		$hl_app_bar.find("a.hl_theme[data-val=" + (localStorage.getItem('hl_theme') || "vs-dark") + "]").click();
+		$hl_app_bar.find("a.hl_mode[data-val=" + (localStorage.getItem('hl_mode') || "spl") + "]").click();
+	}
 
 	$(".hl_spinner").remove();
 	$("body").css("overflow","");
