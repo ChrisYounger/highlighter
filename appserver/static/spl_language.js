@@ -11,10 +11,10 @@
             lang: {
                 defaultToken: 'invalid',
                 ignoreCase: true,
-                brackets: [
-                    { open: '[', close: ']', token: 'delimiter.square' },
-                    { open: '(', close: ')', token: 'delimiter.parenthesis' }
-                ],
+                //brackets: [
+                //    { open: '[', close: ']', token: 'delimiter.square' },
+                //    { open: '(', close: ')', token: 'delimiter.parenthesis' }
+                //],
                 // These are splunk commands that dont have special handling
                 commandBasics: ["addinfo","audit","cofilter","correlate","datamodel","delete","fields","file","filldown","from","gauge","geomfilter","highlight","iconify","localop","multisearch","nomv","overlap","pivot","regex","relevancy","reltime","return","reverse","table","tail","typer","uniq","untable"],
                 commonEvalFunctions: ['abs','case','ceiling','cidrmatch','coalesce','commands','exact','exp','false','floor','if','ifnull','isbool','isint','isnotnull','isnull','isnum','isstr','len','like','ln','log','lower','match','max','md5','min','mvappend','mvcount','mvdedup','mvindex','mvfilter','mvfind','mvjoin','mvrange','mvsort','mvzip','now','null','nullif','pi','pow','random','relative_time','replace','round','searchmatch','sha1','sha256','sha512','sigfig','spath','split','sqrt','strftime','strptime','substr','time','tostring','trim','ltrim','rtrim','true','typeof','upper','urldecode','validate','tonumber','acos','acosh','asin','asinh','atan','atan2','atanh','cos','cosh','hypot','sin','sinh','tan','tanh'],
@@ -1698,11 +1698,16 @@ xyseriesCommand: [
                         { include: '@whitespace' },
                         { include: '@strings' },
                         { include: '@numbers' },			
-                        [/[\(\)\[\]]/, '@brackets'],
+                        //[/[\]\[\(\)]/, '@brackets'],
+                        [/\(/, 'brackets.open'],
+                        [/\)/, 'brackets.close'],
+                        [/\[/, 'subsearch.start'],
+                        [/\]/, 'subsearch.end'],
                     ],
                     commonPostamble: [
-                        [/[<>=,\+\.]/, {token: 'operator'}],
-                        [/[^\|\s<>=!\(\)\[\]]+/, 'identifier.postamble'],
+                        [/[!<>=,%\+\.\*\-\/]+/, {token: 'operator'}],
+						//Gobble up unexpected things (negated character class)
+                        [/[^\s\|\(\)\[\]!<>=,%\+\.\*\-\/]+/, 'identifier.postamble'],
                         ['', '', '@pop'],
                     ],
                     renameAs: [

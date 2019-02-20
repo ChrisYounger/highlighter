@@ -91,6 +91,8 @@ function startHighlighter(undefined, $, spl_language, mvc, DashboardController, 
 	var data = {};
 	var $dashboardBody = $('.dashboard-body');
 	var $hl_description = $(".hl_description");
+	var $hl_description_select = $(".hl_description_select");
+	var $hl_description_content = $(".hl_description_content");
 	var $hl_resize_height = $(".hl_resize_height");
 	var $hl_container = $(".hl_container");
 	var $hl_app_bar = $(".hl_app_bar");
@@ -187,6 +189,13 @@ function startHighlighter(undefined, $, spl_language, mvc, DashboardController, 
 	// Async get the json file of the command descriptions etc - for the tooltips
 	$.getJSON(tooltips_path, function( d ) {
 		data = d;
+		for (var key in data) {
+			if (data.hasOwnProperty(key)) {
+				$("<option></option>").text(key).appendTo($hl_description_select);
+			}
+		}
+		$hl_description_select.val("search").change();
+
 		/*  tooltips are annoying
 		monaco.languages.registerHoverProvider('spl', {
 			provideHover: function(model, position) {
@@ -288,8 +297,11 @@ function startHighlighter(undefined, $, spl_language, mvc, DashboardController, 
 	}
 
 	function reformatCode() {
+		if (mode !== "spl") {
+			return;
+		}
 		// TODO there is a bug here where \n's inside strings will be removed!!
-		var contents = model.getValue().replace(/[\r\n]+/g,'');
+		var contents = model.getValue();//.replace(/[\r\n]+/g,'');
 		var tokenized = monaco.editor.tokenize(contents ,'spl');
 		var currentIndentLevel = 0;
 		var deleteNextWhiteSpace = true;
@@ -308,47 +320,41 @@ function startHighlighter(undefined, $, spl_language, mvc, DashboardController, 
 				if (breakOnNextToken) {
 					doNewLine = true;
 				}
-				breakOnNextToken = false
+				breakOnNextToken = false;
 				if (tokenized[i][j].type === "macro.comment.wrap.close.spl") {
 					breakOnNextToken = true;
 				}				
 				// Force a newline before a pipe, except if we just started a new line from a left square bracket
-				if (tokenized[i][j].type === "pipe.spl" || tokenized[i][j].type === "delimiter.square.spl.close") {
-					//deleteNextWhiteSpace = true;
+				if (tokenized[i][j].type === "pipe.spl" && prevTok !== "subsearch.start.spl") {
 					doNewLine = true;
 				}
 				if (tokenized[i][j].type === "macro.comment.wrap.open.spl"){
-					// add extra blank line before comments
+					// add second blank line before comments
 					if (prevTok !== "macro.comment.wrap.close.spl") {
 						result += "\n";
 					}
 					doNewLine = true;
 				}
-				// TODO there is a bug here in that this might be a few delimiters joined together. This would be super rare though
-				// Force a new line before an opening left square bracket
-				if (tokenized[i][j].type === "delimiter.square.spl"){
-					if (contents.substr(tokenized[i][j].offset, 1) === "[") {
-						currentIndentLevel++;
-						tokenized[i][j].type = "delimiter.square.spl.open";
-					} else {
-						currentIndentLevel--;
-						currentIndentLevel = Math.max(currentIndentLevel, 0);
-						tokenized[i][j].type = "delimiter.square.spl.close";
-					}
+				if (tokenized[i][j].type === "subsearch.start.spl"){
+					currentIndentLevel++;
+					doNewLine = true;
+				}
+				if (tokenized[i][j].type === "subsearch.end.spl"){
+					currentIndentLevel--;
+					currentIndentLevel = Math.max(currentIndentLevel, 0);
+					breakOnNextToken = true;
+				
 				}
 				// Figure out how many characters the token is
-				var endPosition;
-				if ((j + 1) < tokenized[i].length) {
-					endPosition = tokenized[i][(j+1)].offset;
-				} else {
-					endPosition = contents.length;
-				}
-				var tok = contents.substring(tokenized[i][j].offset, endPosition);
+				var endPosition = ((j + 1) < tokenized[i].length) ? tokenized[i][(j+1)].offset : model.getLineLength(i+1);
+				var tok = model.getValueInRange(new monaco.Range( (i+1), (tokenized[i][j].offset+1), (i+1), (endPosition+1) ));
+
 				if (doNewLine) {
 					result += "\n" + "\t".repeat(currentIndentLevel);
 					deleteNextWhiteSpace = true;
 				}
 				if (tokenized[i][j].type === "white.spl") {
+					// Normalise whitespace (including newlines) to a single space.
 					result += " ";
 				} else {
 					result += tok;
@@ -368,7 +374,7 @@ function startHighlighter(undefined, $, spl_language, mvc, DashboardController, 
 		result = result.replace(/^\s+/,"");
 
 		// set value in a way that it can be undo'ed
-		editor.executeEdits('beautifier', [{ identifier: 'delete', range: new monaco.Range(1, 1, 10000, 1), text: '', forceMoveMarkers: true }]);
+		editor.executeEdits('beautifier', [{ identifier: 'delete', range: new monaco.Range(1, 1, 100000, 1), text: '', forceMoveMarkers: true }]);
 		editor.executeEdits('beautifier', [{ identifier: 'insert', range: new monaco.Range(1, 1, 1, 1), text: result, forceMoveMarkers: true }]);
 	}
 
@@ -396,32 +402,48 @@ function startHighlighter(undefined, $, spl_language, mvc, DashboardController, 
 		}
 	});
 
-	editor.onDidChangeCursorPosition(function (e) {
-		var tok = determineCurrentCommandFull(e.position);
-		if (tok && data.hasOwnProperty(tok.cmd)) {
-			var m = (data[tok.cmd].description || "");
-			$hl_description.empty().append($("<h2></h2>").text("| " + tok.cmd));
-
-			var p = m.replace(/\\p\\/g,"\\i\\ \\i\\").split(/\\i\\/);
-			for (var i = 0; i < p.length; i++) {
-				$("<p class='hl_desc'></p>").text(p[i]).appendTo($hl_description);
-			}
-
-			$hl_description.append(
-				$("<h4>Syntax</h4>"),
-				$("<span class='hl_pre'></span>").text(data[tok.cmd].syntax || ""),				
-			);				
-			for (var i = 1; i < 6; i++) {
-				if (data[tok.cmd].hasOwnProperty("example" + i)) {
-					$hl_description.append(
-						$("<h4>Example "+ i + ": </h4>").append("<span class='hl_ex'>" + (data[tok.cmd]['comment' + i] || "") + "</span"),
-						$("<span class='hl_pre'></span>").text(data[tok.cmd]['example' + i])
-					);
+	$hl_description_select.on("change", function(){
+		var command = $(this).val();
+		if (! command) { return; }
+		var m = (data[command].description || "");
+		$hl_description_content.empty();
+		var $doco_links = $("<div></div>").appendTo($hl_description_content);
+		$doco_links.append("<a href='http://docs.splunk.com/Documentation/Splunk/latest/SearchReference/" + command + "' class='hl_link' target='blank'>Official documentation</a>");
+		if (data[command].hasOwnProperty("related")) {
+			$doco_links.append("<span class='hl_seealso'> See also: </span>");
+			var rels = data[command].related.split(",");
+			var relsA = [];
+			for (var k = 0; k < rels.length; k++) {
+				var rel = $.trim(rels[k]);
+				if (rel) {
+					relsA.push("<a href='http://docs.splunk.com/Documentation/Splunk/latest/SearchReference/" + rel + "' class='hl_link' target='blank'>" + rel + "</a>");
 				}
 			}
-		} else {
-			$hl_description.empty().append("<div class='hl_dim'>Click a Splunk command for documentation..</div>");
+			$doco_links.append(relsA.join(", "));
+		}	
+
+		var p = m.replace(/\\p\\/g,"\\i\\ \\i\\").split(/\\i\\/);
+		for (var i = 0; i < p.length; i++) {
+			$("<p class='hl_desc'></p>").text(p[i]).appendTo($hl_description_content);
 		}
+
+		$hl_description_content.append(
+			$("<h4>Syntax</h4>"),
+			$("<span class='hl_pre'></span>").text(data[command].syntax || ""),				
+		);				
+		for (var i = 1; i < 6; i++) {
+			if (data[command].hasOwnProperty("example" + i)) {
+				$hl_description_content.append(
+					$("<h4>Example "+ i + ": </h4>").append("<span class='hl_ex'>" + (data[command]['comment' + i] || "") + "</span"),
+					$("<span class='hl_pre'></span>").text(data[command]['example' + i])
+				);
+			}
+		}
+	});
+	
+	editor.onDidChangeCursorPosition(function (e) {
+		var tok = determineCurrentCommandFull(e.position);
+		$hl_description_select.val(tok.cmd).change();
 	});
 
 	// Handler for resizing the tree pane/editor divider
