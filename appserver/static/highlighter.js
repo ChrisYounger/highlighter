@@ -98,7 +98,7 @@ function startHighlighter(undefined, $, spl_language, mvc, DashboardController, 
 	var $hl_app_bar = $(".hl_app_bar");
 	var mode = "spl";
 	var theme = "vs-dark";
-	var model = monaco.editor.createModel("\n\n\n`comment(\"Paste SPL query here...\")`\n\n`comment(\"All processing is client-side. No content is sent to the server...\")`\n");
+	var model = monaco.editor.createModel("\n\n\n`comment(\"Paste SPL query here...\")`\n\n");
 	var editor = monaco.editor.create($hl_container[0], {
 		automaticLayout: true,
 		model: model,
@@ -287,6 +287,31 @@ function startHighlighter(undefined, $, spl_language, mvc, DashboardController, 
 		}
 	});
 
+	$(".hl_sharelink").on("click", function(e){
+		e.preventDefault();
+		var $modal = $('.hl_modal');
+		var $closeButton = $("<button class='btn'>Close</button>").on("click", function(){ $modal.removeClass('hl_show'); });
+		$modal.html("<div class='hl_spinner spinner'><div class='bounce1'></div><div class='bounce2'></div><div class='bounce3'></div></div>");
+		$modal.addClass('hl_show');
+		$.ajax({
+			type: "POST",
+			url: "https://git.io/create",
+			data:  "url=https://chrisyounger.github.io/highlighter/appserver/static/" + document.location.hash,
+		}).done(function(response){
+			var shorturl = "https://git.io/" + response;
+			$modal.html("<div class='hp_shortlink_result'><input type='text' /><button class='btn'>Copy</button></div>");
+			$modal.find("input").val(shorturl);
+			$modal.find(".hp_shortlink_result > button").on("click", function(){
+				copyTextToClipboard(shorturl);
+			});
+		}).fail(function() {
+			$modal.html("<div class=''>Error creating short URL...</div>");
+
+		}).always(function(){
+			$("<div class='hl_modal_footer'></div>").append($closeButton).appendTo($modal);
+		});
+	});
+
 	function showToast(message) {
 		var t = $('.hl_toaster');
 		t.find('span').text(message);
@@ -300,8 +325,7 @@ function startHighlighter(undefined, $, spl_language, mvc, DashboardController, 
 		if (mode !== "spl") {
 			return;
 		}
-		// TODO there is a bug here where \n's inside strings will be removed!!
-		var contents = model.getValue();//.replace(/[\r\n]+/g,'');
+		var contents = model.getValue();
 		var tokenized = monaco.editor.tokenize(contents ,'spl');
 		var currentIndentLevel = 0;
 		var deleteNextWhiteSpace = true;

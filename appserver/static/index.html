@@ -38,6 +38,24 @@
 		.dashboard-body:after {
 			clear: both;
 		}
+		.btn {
+			display: inline-block;
+			height: auto;
+			line-height: 20px;
+			font-size: 14px;
+			box-sizing: border-box;
+			padding: 5px 14px;
+			margin-bottom: 0;
+			font-weight: 400;
+			text-align: center;
+			vertical-align: middle;
+			cursor: pointer;
+			border: 1px solid;
+			border-radius: 3px;
+			white-space: nowrap;
+			background-color: #f7f8fa;
+			border-color: #c3cbd4;			
+		}
 	</style>
 	<!-- Global site tag (gtag.js) - Google Analytics. Tracking is page loads only. No tracking of SPL queries. -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-1656179-8"></script>
@@ -53,6 +71,7 @@
 <body>
     <header>
 		<span class="hl_right_title">
+			<a href="#" class="hl_sharelink">Create a short URL for sharing</a> | 
 			<a href="https://github.com/ChrisYounger/highlighter" target="_blank">GitHub</a> | 
 			<a href="https://answers.splunk.com/app/questions/4382.html" target="_blank">Suggestions &amp; Support</a>
 		</span>
@@ -87,6 +106,7 @@
 		<div class="hl_description"><select class="hl_description_select"></select><div class="hl_description_content"></div></div>
 		
     </div>
+	<div class="hl_modal"></div>
 	<div class="hl_toaster"><span>Copied to clipboard!</span></div>
 	<script>var standaloneMode = true; </script>
 	<script src="require.min.js"></script>

@@ -132,6 +132,9 @@
 html .hl_spinner {
 	margin-top: 140px;
 }
+html .hl_modal .hl_spinner {
+	margin: 20px auto;
+}
 .spinner {
   margin: 100px auto 0;
   width: 70px;
@@ -185,7 +188,24 @@ html .hl_spinner {
     text-align: center;
 	transition: all 200ms;
 }
-.hl_toaster.hl_show {
+.hl_modal {
+	background-color: white;
+    width: 400px;
+    position: absolute;
+    top: 100px;
+    margin-left: -200px;
+    left: 50%;
+    line-height: 60px;
+    padding: 20px 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    color: black;
+	visibility: hidden;
+	opacity: 0;
+	transform: translateY(30px);
+    text-align: center;
+	transition: all 200ms;   
+}
+.hl_toaster.hl_show, .hl_modal.hl_show {
 	opacity: 1;
 	visibility: visible;
 	transform: translateY(0);
@@ -211,4 +231,28 @@ html .hl_spinner {
 
 .hl_seealso  {
     margin-left: 45px
+}
+.hl_sharelink {
+    font-weight: bold;
+}
+.hp_shortlink_result {
+
+}
+.hp_shortlink_result input {
+    line-height: 20px;
+    font-size: 14px;
+    padding: 5px 14px;
+    margin-bottom: 0;
+    font-weight: 400;
+    border: 1px solid;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    white-space: nowrap;
+    background-color: #f7f8fa;
+    border-color: #c3cbd4;
+}
+.hp_shortlink_result .btn{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    transform: translate(-1px, -1px);
 }
