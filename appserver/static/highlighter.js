@@ -293,18 +293,20 @@ function startHighlighter(undefined, $, spl_language, mvc, DashboardController, 
 		var $closeButton = $("<button class='btn'>Close</button>").on("click", function(){ $modal.removeClass('hl_show'); });
 		$modal.html("<div class='hl_spinner spinner'><div class='bounce1'></div><div class='bounce2'></div><div class='bounce3'></div></div>");
 		$modal.addClass('hl_show');
+		//console.log("Submitting", "url=" + encodeURI("https://chrisyounger.github.io/highlighter/appserver/static/" + document.location.hash));
 		$.ajax({
 			type: "POST",
-			url: "https://git.io/create",
-			data:  "url=https://chrisyounger.github.io/highlighter/appserver/static/" + document.location.hash,
+			url: "https://neqvtz3rxl.execute-api.us-east-1.amazonaws.com/default/splHighlighterShortLink",
+			data:  "url=" + encodeURI("https://chrisyounger.github.io/highlighter/appserver/static/" + document.location.hash),
+			dataType: "text"
 		}).done(function(response){
-			var shorturl = "https://git.io/" + response;
 			$modal.html("<div class='hp_shortlink_result'><input type='text' /><button class='btn'>Copy</button></div>");
-			$modal.find("input").val(shorturl);
+			$modal.find("input").val(response);
 			$modal.find(".hp_shortlink_result > button").on("click", function(){
-				copyTextToClipboard(shorturl);
+				copyTextToClipboard(response);
 			});
 		}).fail(function() {
+			console.log(arguments);
 			$modal.html("<div class=''>Error creating short URL...</div>");
 
 		}).always(function(){
