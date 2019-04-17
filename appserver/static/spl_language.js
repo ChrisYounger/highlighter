@@ -1724,6 +1724,7 @@ xyseriesCommand: [
 					commentsEnd: [
                         //[/[^\\"]+$/, 'string', '@pop'],
                         [/"\s*\)\s*`/, 'macro.comment.wrap.close', '@pop'],
+                        [/\\./, 'macro.comment'],
                         [/[^\\"]+/, 'macro.comment'],
                         //[/\\./, 'macro.comment'],
                         //[/\\$/, 'macro.comment']
@@ -1750,7 +1751,7 @@ xyseriesCommand: [
                     dblStringBody: [
                         //[/[^\\"]+$/, 'string', '@pop'],
                         [/[^\\"]+/, 'string'],
-                        //[/\\./, 'string'],
+                        [/\\./, 'string'],
                         [/"/, 'string.escape', '@pop'],
                         //[/\\$/, 'string']
                     ]			
