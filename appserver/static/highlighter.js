@@ -248,6 +248,23 @@ function startHighlighter(undefined, $, spl_language, mvc, DashboardController, 
 			updateUrlHash();
 		} else if (val === "autoformat") {
 			reformatCode();
+		} else if (val === "decode") {
+			var contents = model.getValue();
+			var parser = document.createElement('a'),
+				searchObject = {},
+				queries, split, i;
+			// Let the browser do the work
+			parser.href = contents;
+			if (parser.search) {
+				// Convert query string to object
+				queries = parser.search.replace(/^\?/, '').split('&');
+				for( i = 0; i < queries.length; i++ ) {
+					split = queries[i].split('=');
+					searchObject[split[0]] = split[1];
+				}
+				model.setValue(decodeURIComponent(searchObject["q"]));
+			}
+
 		} else if (val === "copy") {
 			editor.setSelection(new monaco.Range(0, 0, 999999999, 999999999));
 			editor.trigger('source','editor.action.clipboardCopyAction');
