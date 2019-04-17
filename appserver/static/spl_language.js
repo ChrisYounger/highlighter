@@ -1701,7 +1701,7 @@ xyseriesCommand: [
                         //[/[\]\[\(\)]/, '@brackets'],
                         [/\(/, 'brackets.open'],
                         [/\)/, 'brackets.close'],
-                        [/\[/, 'subsearch.start'],
+                        [/\[/, 'subsearch.start', '@aaCommand'],
                         [/\]/, 'subsearch.end'],
                     ],
                     commonPostamble: [
@@ -1718,8 +1718,15 @@ xyseriesCommand: [
                     ],
                     whitespace: [
                         [/\s+/, 'white'],
-                        [/(`\s*comment\s*\(\s*\")(.*?)(\"\s*\)\s*`)/, ['macro.comment.wrap.open','macro.comment','macro.comment.wrap.close']],
+                        [/`\s*comment\s*\(\s*"/, 'macro.comment.wrap.open', '@commentsEnd'],
                         [/(`)(\s*\w+)([^`]*)(`)/, ['macro.function','macro.function','macro.args','macro.function']]
+                    ],	
+					commentsEnd: [
+                        //[/[^\\"]+$/, 'string', '@pop'],
+                        [/"\s*\)\s*`/, 'macro.comment.wrap.close', '@pop'],
+                        [/[^\\"]+/, 'macro.comment'],
+                        //[/\\./, 'macro.comment'],
+                        //[/\\$/, 'macro.comment']
                     ],
                     numbers: [
                         [/0[xX][0-9a-fA-F]*/, 'number'],
@@ -1728,24 +1735,24 @@ xyseriesCommand: [
                     ],
                     // Recognize strings, including those broken across lines with \ (but not without)
                     strings: [
-                        [/'$/, 'string.escape', '@pop'],
+                        //[/'$/, 'string.escape', '@pop'],
                         [/'/, 'string.escape', '@stringBody'],
-                        [/"$/, 'string.escape', '@pop'],
+                        //[/"$/, 'string.escape', '@pop'],
                         [/"/, 'string.escape', '@dblStringBody']
                     ],
                     stringBody: [
-                        [/[^\\']+$/, 'string', '@pop'],
+                        //[/[^\\']+$/, 'string', '@pop'],
                         [/[^\\']+/, 'string'],
                         [/\\./, 'string'],
                         [/'/, 'string.escape', '@pop'],
-                        [/\\$/, 'string']
+                        //[/\\$/, 'string']
                     ],
                     dblStringBody: [
-                        [/[^\\"]+$/, 'string', '@pop'],
+                        //[/[^\\"]+$/, 'string', '@pop'],
                         [/[^\\"]+/, 'string'],
-                        [/\\./, 'string'],
+                        //[/\\./, 'string'],
                         [/"/, 'string.escape', '@pop'],
-                        [/\\$/, 'string']
+                        //[/\\$/, 'string']
                     ]			
                 }
             }
