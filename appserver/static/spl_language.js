@@ -486,7 +486,7 @@ bucketdirCommand: [
 chartCommand: [
 	{ include: '@commonPreamble' },
 	{ include: '@renameAs' },
-	[/(?:md5|sha1|sha256|sha512|atan2|dur2sec|[a-zA-Z_]+)(?=\d*\s*\()/, {
+	[/(?:count|(?:md5|sha1|sha256|sha512|atan2|dur2sec|[a-zA-Z_]+)(?=\d*\s*\())/, {
 		cases: {
 			'@commonAggFunctions': 'function',
 			'@default': 'identifier.badfunction'
@@ -549,7 +549,7 @@ contingencyCommand: [
 convertCommand: [
 	{ include: '@commonPreamble' },
 	{ include: '@renameAs' },
-	[/(?:md5|sha1|sha256|sha512|atan2|dur2sec|[a-zA-Z_]+)(?=\d*\s*\()/, {
+	[/(?:count|(?:md5|sha1|sha256|sha512|atan2|dur2sec|[a-zA-Z_]+)(?=\d*\s*\())/, {
 		cases: {
 			'@commonConvertFunctions': 'function',
 			'@default': 'identifier.badfunction'
@@ -623,7 +623,7 @@ erexCommand: [
 
 evalCommand: [
 	{ include: '@commonPreamble' },
-	[/(?:md5|sha1|sha256|sha512|atan2|dur2sec|[a-zA-Z_]+)(?=\d*\s*\()/, {
+	[/(?:count|(?:md5|sha1|sha256|sha512|atan2|dur2sec|[a-zA-Z_]+)(?=\d*\s*\())/, {
 		cases: {
 			'@commonEvalFunctions': 'function',
 			'@default': 'identifier.badfunction'
@@ -653,7 +653,7 @@ eventcountCommand: [
 eventstatsCommand: [
 	{ include: '@commonPreamble' },
 	{ include: '@renameAs' },
-	[/(?:md5|sha1|sha256|sha512|atan2|dur2sec|[a-zA-Z_]+)(?=\d*\s*\()/, {
+	[/(?:count|(?:md5|sha1|sha256|sha512|atan2|dur2sec|[a-zA-Z_]+)(?=\d*\s*\())/, {
 		cases: {
 			'@commonAggFunctions': 'function',
 			'@default': 'identifier.badfunction'
@@ -771,7 +771,7 @@ geomCommand: [
 geostatsCommand: [
 	{ include: '@commonPreamble' },
 	{ include: '@renameAs' },
-	[/(?:md5|sha1|sha256|sha512|atan2|dur2sec|[a-zA-Z_]+)(?=\d*\s*\()/, {
+		[/(?:count|(?:md5|sha1|sha256|sha512|atan2|dur2sec|[a-zA-Z_]+)(?=\d*\s*\())/, {	
 		cases: {
 			'@commonAggFunctions': 'function',
 			'@default': 'identifier.badfunction'
@@ -788,7 +788,7 @@ geostatsCommand: [
 
 headCommand: [
 	{ include: '@commonPreamble' },
-	[/(?:md5|sha1|sha256|sha512|atan2|dur2sec|[a-zA-Z_]+)(?=\d*\s*\()/, {
+	[/(?:count|(?:md5|sha1|sha256|sha512|atan2|dur2sec|[a-zA-Z_]+)(?=\d*\s*\())/, {
 		cases: {
 			'@commonEvalFunctions': 'function',
 			'@default': 'identifier.badfunction'
@@ -1032,7 +1032,7 @@ meventcollectCommand: [
 
 mstatsCommand: [
 	{ include: '@commonPreamble' },
-	[/(?:md5|sha1|sha256|sha512|atan2|dur2sec|[a-zA-Z_]+)(?=\d*\s*\()/, {
+		[/(?:count|(?:md5|sha1|sha256|sha512|atan2|dur2sec|[a-zA-Z_]+)(?=\d*\s*\())/, {
 		cases: {
 			'@commonAggFunctions': 'function',
 			'@default': 'identifier.badfunction'
@@ -1335,7 +1335,7 @@ shapeCommand: [
 sichartCommand: [
 	{ include: '@commonPreamble' },
 	{ include: '@renameAs' },
-	[/(?:md5|sha1|sha256|sha512|atan2|dur2sec|[a-zA-Z_]+)(?=\d*\s*\()/, {
+	[/(?:count|(?:md5|sha1|sha256|sha512|atan2|dur2sec|[a-zA-Z_]+)(?=\d*\s*\())/, {
 		cases: {
 			'@commonAggFunctions': 'function',
 			'@default': 'identifier.badfunction'
@@ -1366,7 +1366,7 @@ sirareCommand: [
 sistatsCommand: [
 	{ include: '@commonPreamble' },
 	{ include: '@renameAs' },
-	[/(?:md5|sha1|sha256|sha512|atan2|dur2sec|[a-zA-Z_]+)(?=\d*\s*\()/, {
+	[/(?:count|(?:md5|sha1|sha256|sha512|atan2|dur2sec|[a-zA-Z_]+)(?=\d*\s*\())/, {
 		cases: {
 			'@commonAggFunctions': 'function',
 			'@default': 'identifier.badfunction'
@@ -1385,7 +1385,7 @@ sistatsCommand: [
 sitimechartCommand: [
 	{ include: '@commonPreamble' },
 	{ include: '@renameAs' },
-	[/(?:md5|sha1|sha256|sha512|atan2|dur2sec|[a-zA-Z_]+)(?=\d*\s*\()/, {
+	[/(?:count|(?:md5|sha1|sha256|sha512|atan2|dur2sec|[a-zA-Z_]+)(?=\d*\s*\())/, {
 		cases: {
 			'@commonAggFunctions': 'function',
 			'@default': 'identifier.badfunction'
@@ -1438,7 +1438,7 @@ spathCommand: [
 statsCommand: [
 	{ include: '@commonPreamble' },
 	{ include: '@renameAs' },
-	[/(?:md5|sha1|sha256|sha512|atan2|dur2sec|[a-zA-Z_]+)(?=\d*\s*\()/, {
+	[/(?:count|(?:md5|sha1|sha256|sha512|atan2|dur2sec|[a-zA-Z_]+)(?=\d*\s*\())/, {
 		cases: {
 			'@commonAggFunctions': 'function',
 			'@default': 'identifier.badfunction'
@@ -1468,7 +1468,7 @@ strcatCommand: [
 streamstatsCommand: [
 	{ include: '@commonPreamble' },
 	{ include: '@renameAs' },
-	[/(?:md5|sha1|sha256|sha512|atan2|dur2sec|[a-zA-Z_]+)(?=\d*\s*\()/, {
+	[/(?:count|(?:md5|sha1|sha256|sha512|atan2|dur2sec|[a-zA-Z_]+)(?=\d*\s*\())/, {
 		cases: {
 			'@commonAggFunctions': 'function',
 			'@default': 'identifier.badfunction'
@@ -1498,7 +1498,7 @@ tagsCommand: [
 timechartCommand: [
 	{ include: '@commonPreamble' },
 	{ include: '@renameAs' },
-	[/(?:md5|sha1|sha256|sha512|atan2|dur2sec|[a-zA-Z_]+)(?=\d*\s*\()/, {
+	[/(?:count|(?:md5|sha1|sha256|sha512|atan2|dur2sec|[a-zA-Z_]+)(?=\d*\s*\())/, {
 		cases: {
 			'@commonAggFunctions': 'function',
 			'@default': 'identifier.badfunction'
@@ -1573,7 +1573,7 @@ trendlineCommand: [
 
 tstatsCommand: [
 	{ include: '@commonPreamble' },
-	[/(?:md5|sha1|sha256|sha512|atan2|dur2sec|[a-zA-Z_]+)(?=\d*\s*\()/, {
+	[/(?:count|(?:md5|sha1|sha256|sha512|atan2|dur2sec|[a-zA-Z_]+)(?=\d*\s*\())/, {
 		cases: {
 			'@commonAggFunctions': 'function',
 			'@default': 'identifier.badfunction'
@@ -1613,7 +1613,7 @@ unionCommand: [
 
 whereCommand: [
 	{ include: '@commonPreamble' },
-	[/(?:md5|sha1|sha256|sha512|atan2|dur2sec|[a-zA-Z_]+)(?=\d*\s*\()/, {
+	[/(?:count|(?:md5|sha1|sha256|sha512|atan2|dur2sec|[a-zA-Z_]+)(?=\d*\s*\())/, {
 		cases: {
 			'@commonEvalFunctions': 'function',
 			'@default': 'identifier.badfunction'
