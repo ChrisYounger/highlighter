@@ -299,6 +299,15 @@ function startHighlighter(undefined, $, spl_language, mvc, DashboardController, 
 				str += "</div>";
 				copyTextToClipboard(str);
 			});
+		} else if (val === "ast") {
+			var service = mvc.createService({owner: "nobody"});
+			var contents = model.getValue();
+			service.request("/servicesNS/admin/search/search/ast", "POST", null, null, JSON.stringify({"spl": model.getValue()}), {"Content-Type": "application/json"}, null).done(function(data) { 
+				model.setValue(contents + "\n\n" + JSON.stringify(JSON.parse(data),null,3));
+			}).fail(function() {
+				alert("FAILED");
+			});
+		
 		} else {
 			alert("coming soon");
 		}
