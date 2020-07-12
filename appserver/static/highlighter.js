@@ -105,6 +105,7 @@ function startHighlighter(undefined, $, spl_language, mvc, DashboardController, 
 		scrollBeyondLastLine: false,
 		wordWrap: "on"
 	});
+	var shown_log_message = false;
 
 	// Register a new simple language for prettying up git diffs
 	monaco.languages.register({id: 'spl'});
@@ -302,12 +303,63 @@ function startHighlighter(undefined, $, spl_language, mvc, DashboardController, 
 		} else if (val === "ast") {
 			var service = mvc.createService({owner: "nobody"});
 			var contents = model.getValue();
-			service.request("/servicesNS/admin/search/search/ast", "POST", null, null, JSON.stringify({"spl": model.getValue()}), {"Content-Type": "application/json"}, null).done(function(data) { 
-				model.setValue(contents + "\n\n" + JSON.stringify(JSON.parse(data),null,3));
+			if (! /^\s*(search\s|\|)/.test(contents)) {
+				contents = "search " + contents; 
+			}
+			service.request("/servicesNS/admin/search/search/ast", "POST", null, null, JSON.stringify({"spl": contents}), {"Content-Type": "application/json"}, null).done(function(data) { 
+				//model.setValue(contents + "\n\n" + JSON.stringify(JSON.parse(data),null,3));
+				console.log(JSON.parse(data));
+				if (! shown_log_message) {
+					shown_log_message = true;
+					alert("Results have been logged to console. (This message won't be shown again)");
+				}
 			}).fail(function() {
 				alert("FAILED");
 			});
 		
+		} else if (val === "parser") { // /services/search/parser?parse_only=t&q=savedsea
+			var service = mvc.createService({owner: "nobody"});
+			var contents = model.getValue();
+			if (! /^\s*(search\s|\|)/.test(contents)) {
+				contents = "search " + contents; 
+			}
+			//service.get('/services/search/parser?parse_only=t&q=' + encodeURIComponent(contents), null, function(err, r) {
+			service.get('/servicesNS/admin/search/search/parser', {"parse_only": "t", "q": contents}, function(err, r) {
+				if (err) {
+					console.log("ERROR", err);
+				} else {
+					console.log(r);
+					if (! shown_log_message) {
+						shown_log_message = true;
+						alert("Results have been logged to console. (This message won't be shown again)");
+					}
+				}
+
+			}).fail(function() {
+				alert("FAILED");
+			});
+		} else if (val === "parserf") { // /services/search/parser?parse_only=t&q=savedsea
+			var service = mvc.createService({owner: "nobody"});
+			var contents = model.getValue();
+			if (! /^\s*(search\s|\|)/.test(contents)) {
+				contents = "search " + contents; 
+			}
+			//service.get('/services/search/parser?parse_only=t&q=' + encodeURIComponent(contents), null, function(err, r) {
+			service.get('/servicesNS/admin/search/search/parser', {"parse_only": "f", "q": contents}, function(err, r) {
+				if (err) {
+					console.log("ERROR", err);
+				} else {
+					console.log(r);
+					if (! shown_log_message) {
+						shown_log_message = true;
+						alert("Results have been logged to console. (This message won't be shown again)");
+					}
+				}
+
+			}).fail(function() {
+				alert("FAILED");
+			});
+				
 		} else {
 			alert("coming soon");
 		}
