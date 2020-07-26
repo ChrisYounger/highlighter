@@ -10,15 +10,7 @@ The strength is that you can "copy" the highlighted text and paste it in word do
 syntax highlighting will be preserved. Perfect for sharing queries that users can understand more easily.
 
 
-Copyright (C) 2018 Chris Younger
-I am a Splunk Professional Services consultant working for [JDS Australia](https://www.jds.net.au), in Brisbane Australia. 
-
-
-[Source code](https://github.com/ChrisYounger/highlighter)
-
-[Feature requests and bugs](https://github.com/ChrisYounger/highlighter/issues)
-
-[Splunkbase](https://splunkbase.splunk.com/app/4382/)
+Copyright (C) 2020 Chris Younger | [Source code](https://github.com/ChrisYounger/highlighter) | [Feature requests and bugs](https://github.com/ChrisYounger/highlighter/issues) | [Splunkbase](https://splunkbase.splunk.com/app/4382/)
 
 
 
