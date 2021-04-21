@@ -1719,11 +1719,16 @@ xyseriesCommand: [
                         [/(as)(\s+)/, ['keyword','white']],
                     ],
                     whitespace: [
+                        [/```/, 'macro.comment', '@comment1'],
                         [/\s+/, 'white'],
                         [/`\s*comment\s*\(\s*"/, 'macro.comment.wrap.open', '@commentsEnd'],
                         [/(`)(\s*\w+)([^`]*)(`)/, ['macro.function','macro.function','macro.args','macro.function']]
-                    ],	
-					commentsEnd: [
+                    ],
+                    comment1: [
+                        [/```/, 'macro.comment', '@pop'],
+                        [/./, 'macro.comment']
+                    ],
+                    commentsEnd: [
                         //[/[^\\"]+$/, 'string', '@pop'],
                         [/"\s*\)\s*`/, 'macro.comment.wrap.close', '@pop'],
                         [/\\./, 'macro.comment'],
