@@ -40,6 +40,40 @@ if (typeof standaloneMode !== "undefined") {
 	require(["vs/editor/editor.main","jquery","spl_language"], startHighlighter);
 } else {
 	require(["vs/editor/editor.main","jquery","app/highlighter/spl_language","splunkjs/mvc","splunkjs/mvc/simplexml","splunkjs/mvc/layoutview","splunkjs/mvc/simplexml/dashboardview"], startHighlighter);
+
+	// Inject all the HTML contents
+	$(".dashboard-body").html(
+	"<div class='hl_app_bar'>"+
+		"<span class='hl_title'>Theme:</span>"+
+		"<a href='#' class='hl_theme hl_link' data-val='vs'>Light</a> | "+
+		"<a href='#' class='hl_theme hl_link' data-val='vs-dark'>Dark</a> <!--| "+
+		"<a href='#' class='hl_theme' data-val='hc-black'>High Contrast</a>-->"+
+
+		"<span class='hl_title hl_title_leftpad'>Highlighting mode:</span>"+
+		"<a href='#' class='hl_mode hl_link' data-val='spl'>Search SPL</a> | "+
+		"<a href='#' class='hl_mode hl_link' data-val='ini'>Config file</a> | "+
+		"<a href='#' class='hl_mode hl_link' data-val='html'>Dashboard (HTML)</a> | "+
+		"<a href='#' class='hl_mode hl_link' data-val='javascript'>JS</a> | "+
+		"<a href='#' class='hl_mode hl_link' data-val='css'>CSS</a>"+
+
+		"<span class='hl_title hl_title_leftpad'>Actions:</span>"+
+		"<a href='#' class='hl_action hl_link' data-val='copy'>Copy as rich text</a> | "+
+		"<a href='#' class='hl_action hl_link' data-val='copyhtml'>Copy as HTML</a> | "+
+		"<a href='#' class='hl_action hl_link' data-val='autoformat'>Autoformat (CTRL-|)</a> |"+
+		"<a href='#' class='hl_action hl_link' data-val='decode'>Decode from URL</a> " + // "| "+
+		//"<a href='#' class='hl_action hl_link' data-val='ast' style='color:#0b0b0b;'>Generate AST</a> |"+
+		//"<a href='#' class='hl_action hl_link' data-val='parser' style='color:#0b0b0b;'>Parser</a> |"+
+		//"<a href='#' class='hl_action hl_link' data-val='parserf' style='color:#0b0b0b;'>ParserFull</a>"+
+	"</div>"+
+	"<div class='hl_spinner spinner'>"+
+		"<div class='bounce1'></div>"+
+		"<div class='bounce2'></div>"+
+		"<div class='bounce3'></div>"+
+	"</div>"+
+	"<div class='hl_container'></div>"+
+	"<div class='hl_resize_height'><div class='hl_tab'>Search command documentation</div></div>"+
+	"<div class='hl_description'><select class='hl_description_select'></select><div class='hl_description_content'></div></div>"+
+	"<div class='hl_toaster'><span>Copied to clipboard!</span></div>");
 }
 
 function startHighlighter(undefined, $, spl_language, mvc, DashboardController, LayoutView, Dashboard) {
@@ -533,7 +567,7 @@ function startHighlighter(undefined, $, spl_language, mvc, DashboardController, 
 
 		$hl_description_content.append(
 			$("<h4>Syntax</h4>"),
-			$("<span class='hl_pre'></span>").text(data[command].syntax || ""),				
+			$("<span class='hl_pre'></span>").text(data[command].syntax || ""),
 		);				
 		for (var i = 1; i < 6; i++) {
 			if (data[command].hasOwnProperty("example" + i)) {
@@ -574,31 +608,19 @@ function startHighlighter(undefined, $, spl_language, mvc, DashboardController, 
 			$hl_app_bar.find("a.hl_theme[data-val=" + g1 + "]").click();
 			$hl_app_bar.find("a.hl_mode[data-val=" + g2 + "]").click();
 			model.setValue(g3);	
-		})		
+		})
 	} else {
 		$hl_app_bar.find("a.hl_theme[data-val=" + (localStorage.getItem('hl_theme') || "vs-dark") + "]").click();
 		$hl_app_bar.find("a.hl_mode[data-val=" + (localStorage.getItem('hl_mode') || "spl") + "]").click();
 	}
 
 	$(".hl_spinner").remove();
-	$("body").css("overflow","");
-	$dashboardBody.removeClass("hl_loading");	
-	
+	$("body").css("overflow","hidden");
 	if (typeof standaloneMode === "undefined") {
-		// Setup the splunk components properly
-		$('header').remove();
-		new LayoutView({ "hideAppBar": true, "hideChrome": false, "hideFooter": false, "hideSplunkBar": false, layout: "fixed" })
-			.render()
-			.getContainerElement()
-			.appendChild($dashboardBody[0]);
-
-		new Dashboard({
-			id: 'dashboard',
-			el: $dashboardBody,
-			showTitle: true,
-			editable: true
-		}, { tokens: false }).render();
-
-		DashboardController.ready();
+		$dashboardBody.css({
+			"position": "absolute",
+			"bottom": "0",
+			"top": "34px"
+		});
 	}
 }

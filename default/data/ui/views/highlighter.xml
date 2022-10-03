@@ -1,0 +1,9 @@
+<dashboard script="highlighter.js" stylesheet="highlighter.css" hideAppBar="true" version="1.1">
+    <label>Highlighter</label>
+    <!-- Contents will be injected by Javascript -->
+    <row>
+        <html>
+            Loading...
+        </html>
+    </row>
+</dashboard>
